@@ -131,6 +131,17 @@
     #tc-bn > div:first-child{grid-template-columns:1fr !important;}
   }
   @media(max-width:520px){.ctt,.tdt,.ctn,.tdn,.cto,.tdo{display:none;}header{padding:13px 12px 0;}.cont{padding:12px 9px 60px;}}
+
+  /* 편집 모드 */
+  .edit-active [contenteditable]{outline:none;border-bottom:1.5px dashed var(--red);padding-bottom:1px;min-width:30px;display:inline-block;}
+  .edit-active [contenteditable]:focus{background:#fff8f0;border-radius:3px;}
+  .del-row{display:none;background:none;border:none;color:#ccc;font-size:1rem;cursor:pointer;padding:0 4px;line-height:1;vertical-align:middle;}
+  .del-row:hover{color:var(--red);}
+  .edit-active .del-row{display:inline-block;}
+  .add-row-btn{display:none;width:100%;padding:8px;font-size:.75rem;color:#bbb;background:#fafafa;border:none;border-top:1px dashed #e8e8e8;cursor:pointer;transition:all .15s;text-align:center;}
+  .add-row-btn:hover{color:var(--navy);background:#f0f4ff;}
+  .edit-active .add-row-btn{display:block;}
+  #editToggle.on{background:var(--red) !important;border-color:var(--red) !important;}
 </style>
 </head>
 <body>
