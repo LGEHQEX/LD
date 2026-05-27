@@ -193,6 +193,15 @@ header { background: var(--navy); color: #fff; padding: 18px 22px 0; position: s
   header { padding: 13px 12px 0; }
   .cont { padding: 12px 9px 60px; }
 }
+
+  .img-popup-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 9999; align-items: center; justify-content: center; }
+  .img-popup-overlay.show { display: flex; }
+  .img-popup-box { background: #fff; border-radius: 12px; padding: 16px; max-width: 90vw; max-height: 90vh; box-shadow: 0 8px 40px rgba(0,0,0,.35); position: relative; }
+  .img-popup-box img { display: block; max-width: 80vw; max-height: 75vh; border-radius: 6px; object-fit: contain; }
+  .img-popup-close { position: absolute; top: 8px; right: 10px; background: none; border: none; font-size: 1.4rem; color: #aaa; cursor: pointer; line-height: 1; }
+  .img-popup-close:hover { color: #333; }
+  .img-btn { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #eef2ff; border: 1px solid #c5cff5; color: #1e2d4e; font-size: .68rem; cursor: pointer; margin-left: 6px; vertical-align: middle; flex-shrink: 0; transition: background .15s; }
+  .img-btn:hover { background: #1e2d4e; color: #fff; }
 </style>
 </head>
 <body>
@@ -332,7 +341,7 @@ header { background: var(--navy); color: #fff; padding: 18px 22px 0; position: s
           <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row">×</button></td><td class="tdt">상시</td><td class="tdi">네트워킹 관련 문의 응대</td><td class="tdn"></td><td class="tdo">이상수, 이헌정</td></tr>
           <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row">×</button></td><td class="tdt">PM</td><td class="tdi">현장 사진 / 영상 촬영</td><td class="tdn"></td><td class="tdo">박지은, 김효경(영상)</td></tr>
           <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row">×</button></td><td class="tdt">PM</td><td class="tdi">만족도 조사 안내 및 배포</td><td class="tdn">과정 종료 전 배포</td><td class="tdo">이헌정</td></tr>
-          <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row">×</button></td><td class="tdt">PM</td><td class="tdi">현업 복귀 시 AI Tool 사용 안내</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+          <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row">×</button></td><td class="tdt">PM</td><td class="tdi">현업 복귀 시 AI Tool 사용 안내</td><td class="tdn"><span class="img-btn" data-action="imgpopup">🔍</span></td><td class="tdo">이헌정</td></tr>
           <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row">×</button></td><td class="tdt">종료</td><td class="tdi">강의장 정리 및 기자재 반납</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
         </tbody>
       </table>
@@ -397,6 +406,10 @@ header { background: var(--navy); color: #fff; padding: 18px 22px 0; position: s
     <div class="li">
       <div><div class="lit">📝 사전 설문 (참가자용)</div><div class="lid">Q1~Q8 + C1~C3 · 3~5분</div></div>
       <a class="lbtn" data-link="link_survey">열기 →</a>
+    </div>
+    <div class="li">
+      <div><div class="lit">📄 사전설문 가이드</div><div class="lid">설문 안내 및 작성 가이드 PDF</div></div>
+      <a class="lbtn" href="https://raw.githubusercontent.com/LGEHQEX/LD/main/guide_AXpresurvey.pdf" target="_blank">사전설문 가이드</a>
     </div>
   </div>
 </div><!-- /tc-sv -->
@@ -746,6 +759,20 @@ header { background: var(--navy); color: #fff; padding: 18px 22px 0; position: s
       return;
     }
 
+    // 이미지 팝업 아이콘
+    var imgBtn = target.closest('[data-action="imgpopup"]');
+    if (imgBtn) {
+      var p = document.getElementById('imgPopup');
+      if (p) p.classList.add('show');
+      return;
+    }
+    // 이미지 팝업 닫기
+    if (target.id === 'imgPopupClose' || target.id === 'imgPopup') {
+      var p = document.getElementById('imgPopup');
+      if (p) p.classList.remove('show');
+      return;
+    }
+
     // 체크행 클릭 (편집 중이면 무시, contenteditable 셀이면 무시)
     if (editMode) return;
     if (target.getAttribute('contenteditable')) return;
@@ -764,5 +791,12 @@ header { background: var(--navy); color: #fff; padding: 18px 22px 0; position: s
 
 })();
 </script>
+
+<div id="imgPopup" class="img-popup-overlay">
+  <div class="img-popup-box">
+    <button class="img-popup-close" id="imgPopupClose">×</button>
+    <img src="https://raw.githubusercontent.com/LGEHQEX/LD/main/IMG_9369.png" alt="복귀 후 AI Tool 사용 안내">
+  </div>
+</div>
 </body>
 </html>
