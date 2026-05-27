@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>임원 AX 심화과정 운영 체크리스트</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap');
+  :root{--red:#A50034;--navy:#1e2d4e;--navy2:#2a3f6e;--dark:#1a1a1a;--light:#f0f2f5;--border:#e0e0e0;--done:#f9f9f9;--doneTxt:#bbb;--w:#fff;--sh:0 2px 12px rgba(0,0,0,.07);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:var(--light);color:var(--dark);min-height:100vh;}
+  header{background:var(--navy);color:#fff;padding:18px 22px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.25);}
+  .top-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-bottom:13px;}
+  .title-area h1{font-size:1.08rem;font-weight:700;letter-spacing:-.02em;}
+  .title-area .sub{font-size:.69rem;opacity:.6;margin-top:2px;font-family:'DM Mono',monospace;}
+  .pw{display:flex;align-items:center;gap:10px;}
+  .pr{position:relative;width:44px;height:44px;flex-shrink:0;}
+  .pr svg{transform:rotate(-90deg);}
+  .rbg{fill:none;stroke:rgba(255,255,255,.15);stroke-width:4;}
+  .rfl{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;stroke-dasharray:113;stroke-dashoffset:113;transition:stroke-dashoffset .5s;}
+  .pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.67rem;font-weight:500;}
+  .pt .cnt{font-family:'DM Mono',monospace;font-size:.72rem;}
+  .pt .sts{font-size:.66rem;opacity:.6;margin-top:2px;}
+  .tabs{display:flex;background:var(--navy2);overflow-x:auto;scrollbar-width:none;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tb{flex-shrink:0;padding:10px 17px;font-size:.79rem;font-weight:500;color:rgba(255,255,255,.5);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .2s;font-family:'Noto Sans KR',sans-serif;}
+  .tb:hover{color:rgba(255,255,255,.8);}
+  .tb.active{color:#fff;border-bottom-color:#7ec8ff;}
+  .cont{max-width:960px;margin:0 auto;padding:20px 15px 60px;}
+  .tc{display:none;} .tc.active{display:block;}
+  .ql{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px;}
+  .qlc{background:var(--w);border:1.5px solid var(--border);border-radius:9px;padding:11px 12px;text-decoration:none;color:var(--dark);display:flex;align-items:center;gap:9px;transition:all .2s;cursor:pointer;}
+  .qlc:hover{border-color:var(--navy);box-shadow:0 4px 14px rgba(30,45,78,.12);transform:translateY(-2px);}
+  .qlc .ic{font-size:1.22rem;flex-shrink:0;}
+  .qlc .lb{font-size:.76rem;font-weight:500;line-height:1.3;}
+  .qlc .sl{font-size:.65rem;color:#999;margin-top:2px;}
+  .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+  .bar-t{font-size:.73rem;color:#aaa;}
+  .rst{font-size:.71rem;color:#bbb;background:var(--w);border:1px solid var(--border);padding:4px 10px;border-radius:6px;cursor:pointer;transition:all .15s;}
+  .rst:hover{color:var(--red);border-color:var(--red);}
+  .sec{margin-bottom:11px;background:var(--w);border-radius:10px;border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--sh);}
+  .sh{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;cursor:pointer;user-select:none;transition:background .15s;}
+  .sh:hover{background:#fafafa;}
+  .sh .lft{display:flex;align-items:center;gap:8px;}
+  .pt-tag{font-family:'DM Mono',monospace;font-size:.66rem;font-weight:500;padding:3px 8px;border-radius:20px;white-space:nowrap;}
+  .pd3{background:#fff3e0;color:#bf360c;} .pd2{background:#fce4ec;color:#880e4f;}
+  .pd1{background:#f3e5f5;color:#6a1b9a;} .pd0{background:#fdecea;color:#b71c1c;}
+  .ppo{background:#e8f5e9;color:#1b5e20;}
+  .sh h2{font-size:.88rem;font-weight:700;}
+  .sr{display:flex;align-items:center;gap:8px;}
+  .scc{font-family:'DM Mono',monospace;font-size:.68rem;color:#999;}
+  .cv{font-size:.67rem;color:#bbb;transition:transform .25s;}
+  .sec.op .cv{transform:rotate(180deg);}
+  .sb{display:none;border-top:1px solid var(--border);}
+  .sec.op .sb{display:block;}
+  .ct{width:100%;border-collapse:collapse;}
+  .ct thead th{background:#f5f5f5;font-size:.69rem;font-weight:600;color:#888;padding:7px 11px;text-align:left;border-bottom:1px solid var(--border);}
+  .ct thead th:first-child{width:36px;}
+  .ctt{width:52px;} .cto{width:120px;text-align:center !important;} .ctn{width:240px;}
+  .cr{border-bottom:1px solid #f2f2f2;cursor:pointer;transition:background .12s;}
+  .cr:last-child{border-bottom:none;}
+  .cr:hover{background:#fafafa;}
+  .cr.dn{background:var(--done);}
+  .cr td{padding:10px 11px;vertical-align:middle;}
+  .tdc{width:36px;}
+  .tdt{font-family:'DM Mono',monospace;font-size:.69rem;color:#999;width:52px;}
+  .tdi{font-size:.83rem;color:var(--dark);transition:color .2s;line-height:1.5;}
+  .cr.dn .tdi{color:var(--doneTxt);text-decoration:line-through;}
+  .tdn{font-size:.72rem;color:#aaa;width:190px;line-height:1.4;}
+  .cr.dn .tdn{color:#ccc;}
+  .tdo{font-size:.72rem;color:var(--red);font-weight:500;width:85px;text-align:center;}
+  .cr.dn .tdo{color:#ccc;}
+  .cc{width:17px;height:17px;border:2px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:all .18s;background:#fff;margin:0 auto;}
+  .cr.dn .cc{background:var(--navy);border-color:var(--navy);}
+  .cc::after{content:'';width:4px;height:8px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px);opacity:0;transition:opacity .15s;}
+  .cr.dn .cc::after{opacity:1;}
+  .sly{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:14px;}
+  @media(max-width:680px){.sly{grid-template-columns:1fr;}}
+  .card{background:var(--w);border:1.5px solid var(--border);border-radius:10px;padding:17px;box-shadow:var(--sh);}
+  .card h3{font-size:.87rem;font-weight:700;margin-bottom:3px;color:var(--navy);}
+  .csub{font-size:.69rem;color:#999;margin-bottom:11px;font-family:'DM Mono',monospace;}
+  .qt{width:100%;border-collapse:collapse;}
+  .qt th{font-size:.68rem;font-weight:600;color:#888;padding:6px 8px;text-align:left;background:#f5f5f5;border-bottom:1px solid var(--border);}
+  .qt td{font-size:.77rem;padding:7px 8px;border-bottom:1px solid #f5f5f5;vertical-align:middle;line-height:1.4;}
+  .qt tr:last-child td{border-bottom:none;}
+  .qn{font-family:'DM Mono',monospace;color:#bbb;font-size:.69rem;}
+  .qs{color:var(--red);font-size:.72rem;}
+  .db{font-size:.64rem;padding:2px 6px;border-radius:10px;white-space:nowrap;}
+  .de{background:#e8f5e9;color:#2e7d32;} .dm{background:#e3f2fd;color:#1565c0;}
+  .dh{background:#fce4ec;color:#880e4f;} .dv{background:#fdecea;color:#b71c1c;}
+  .cg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:13px;}
+  @media(max-width:500px){.cg{grid-template-columns:1fr;}}
+  .cc2{border-radius:9px;padding:13px;color:#fff;}
+  .ca{background:linear-gradient(135deg,#1e6e9e,#2980b9);}
+  .cb{background:linear-gradient(135deg,#1e7e5e,#27ae60);}
+  .cc3{background:linear-gradient(135deg,#8e6b00,#c8980a);}
+  .cc2 .cn{font-size:.77rem;font-weight:700;opacity:.85;}
+  .cc2 .csc{font-size:1.45rem;font-weight:700;font-family:'DM Mono',monospace;margin:3px 0;}
+  .cc2 .cl{font-size:.67rem;opacity:.75;margin-bottom:7px;}
+  .cc2 ul{list-style:none;padding:0;}
+  .cc2 ul li{font-size:.68rem;opacity:.85;line-height:1.55;}
+  .cc2 ul li::before{content:'• ';}
+  .rl{list-style:none;padding:0;}
+  .rl li{display:flex;gap:7px;font-size:.77rem;padding:6px 0;border-bottom:1px solid #f5f5f5;line-height:1.5;}
+  .rl li:last-child{border-bottom:none;}
+  .rd{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px;background:#c8980a;}
+  .rt{font-weight:600;color:var(--navy);min-width:100px;}
+  .li{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;border-bottom:1px solid #f0f0f0;gap:11px;}
+  .li:last-child{border-bottom:none;}
+  .lit{font-size:.83rem;font-weight:500;}
+  .lid{font-size:.7rem;color:#999;margin-top:2px;}
+  .lbtn{display:inline-flex;align-items:center;font-size:.7rem;font-weight:500;color:var(--navy);background:#eef2ff;border:1px solid #c5cff5;border-radius:6px;padding:5px 11px;text-decoration:none;white-space:nowrap;transition:background .15s;cursor:pointer;}
+  .lbtn:hover{background:#dde5ff;}
+  .lea{padding:12px 15px;border-top:1px dashed #eee;background:#fafafa;}
+  .let{font-size:.72rem;color:#aaa;margin-bottom:8px;}
+  #le{display:grid;gap:7px;}
+  .sb2{margin-top:8px;font-size:.75rem;background:var(--navy);color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;}
+  .sb2:hover{background:var(--navy2);}
+
+  .bn-section-title{font-size:.73rem;font-weight:700;color:var(--navy);margin-bottom:5px;}
+  .bn-org-grid{display:grid;grid-template-columns:1fr auto;gap:2px 8px;margin-bottom:4px;}
+  .bn-org-l{font-size:.73rem;color:#555;}
+  .bn-org-r{font-size:.73rem;font-weight:600;color:var(--red);text-align:right;}
+  .bn-divider{border-top:1px solid #f0f0f0;margin:8px 0;}
+  .bn-text{font-size:.75rem;color:#444;line-height:1.6;}
+  .bn-special{display:flex;align-items:flex-start;gap:7px;}
+  .bn-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+  .bn-dot-gold{background:#c8980a;}
+  .bn-dot-gray{background:#999;}
+  @media(max-width:680px){
+    #tc-bn > div:first-child{grid-template-columns:1fr !important;}
+  }
+  @media(max-width:520px){.ctt,.tdt,.ctn,.tdn,.cto,.tdo{display:none;}header{padding:13px 12px 0;}.cont{padding:12px 9px 60px;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top-row">
+    <div class="title-area">
+      <h1>임원 AX 심화과정 운영 체크리스트</h1>
+      <div class="sub">Leadership Development팀 · 내부 운영용</div>
+    </div>
+    <div class="pw">
+      <div class="pr">
+        <svg width="44" height="44" viewBox="0 0 44 44"><circle class="rbg" cx="22" cy="22" r="18"/><circle class="rfl" id="rfl" cx="22" cy="22" r="18"/></svg>
+        <div class="pct" id="pct">0%</div>
+      </div>
+      <div class="pt">
+        <div class="cnt" id="pcnt">0 / 0</div>
+        <div class="sts" id="psts">항목 체크 시작</div>
+      </div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tb active" onclick="sw('cl',this)">&#10003; 운영 체크리스트</button>
+    <button class="tb" onclick="sw('sv',this)">&#128221; 사전설문</button>
+    <button class="tb" onclick="sw('bn',this)">&#127919; 분반 현황</button>
+    
+  </div>
+</header>
+
+<div class="cont">
+
+<div id="tc-cl" class="tc active">
+  <div class="ql">
+    <a class="qlc" href="#" onclick="ol(event,'link_guide')"><span class="ic">&#128203;</span><div><div class="lb">과정 안내 페이지</div><div class="sl">참가자 배포용 HTML</div></div></a>
+    <a class="qlc" href="#" onclick="ol(event,'link_survey')"><span class="ic">&#128221;</span><div><div class="lb">사전 설문 링크</div><div class="sl">참가자 응답용</div></div></a>
+    <a class="qlc" href="#" onclick="ol(event,'link_badge')"><span class="ic">&#129436;</span><div><div class="lb">모바일 명찰</div><div class="sl">출석 확인 시스템</div></div></a>
+  </div>
+  <div class="bar"><span class="bar-t">클릭하여 완료 처리 · 새로고침해도 유지됩니다</span><button class="rst" onclick="ra()">&#8635; 전체 초기화</button></div>
+
+  <div class="sec op" id="s-d3">
+    <div class="sh" onclick="ts('s-d3')"><div class="lft"><span class="pt-tag pd3">D-3</span><h2>3일 전 준비</h2></div><div class="sr"><span class="scc" id="c-d3"></span><span class="cv">&#9660;</span></div></div>
+    <div class="sb">
+      <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
+      <tbody id="b-d3">
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">사전 설문 현황 업데이트, 최종 대상정보 유관부서 공유</td><td class="tdn">업무혁신인프라, 교육서비스센터 등</td><td class="tdo">이헌정, 박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">사전 설문 숙련도 기준 3개 반 편성</td><td class="tdn">경영진 조 편성 포함</td><td class="tdo">박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">3개반 운영진 및 VIP 등록</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">Copilot / Claude 계정 확보</td><td class="tdn">업무혁신인프라팀</td><td class="tdo">이상수, 박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">네트워크/보안 TEST 및 AI 사이트 접속 체크</td><td class="tdn">Wi-Fi AP 추가 설치, 접속 안정성 확보</td><td class="tdo">이상수, 박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">참석안내 리마인드 메일/문자 송부</td><td class="tdn">참석자 대상</td><td class="tdo">박선미, 이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">사무용품/다과 준비/세팅 및 중식 체크</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">사외강사 VIP 등록</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-3</td><td class="tdi">중식메뉴 체크</td><td class="tdn">오색비빔밥 &amp; 밀면</td><td class="tdo">이헌정, 박선미</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="sec op" id="s-d2">
+    <div class="sh" onclick="ts('s-d2')"><div class="lft"><span class="pt-tag pd2">D-2</span><h2>2일 전 준비</h2></div><div class="sr"><span class="scc" id="c-d2"></span><span class="cv">&#9660;</span></div></div>
+    <div class="sb">
+      <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
+      <tbody id="b-d2">
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-2</td><td class="tdi">강의장 세팅 및 Projector/Screen 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-2</td><td class="tdi">참석자 명찰(종이) 제작</td><td class="tdn">분반 정보, Google ID/PWD 포함</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-2</td><td class="tdi">모바일 명찰 데이터 최종 업로드</td><td class="tdn">참가자 명단 반영, 패스코드 설정</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-2</td><td class="tdi">교재 및 운영 자료 인쇄 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="sec" id="s-d1">
+    <div class="sh" onclick="ts('s-d1')"><div class="lft"><span class="pt-tag pd1">D-1</span><h2>전날</h2></div><div class="sr"><span class="scc" id="c-d1"></span><span class="cv">&#9660;</span></div></div>
+    <div class="sb">
+      <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
+      <tbody id="b-d1">
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-1</td><td class="tdi">강의장 최종 점검 (좌석, 온도, 조명, 음향)</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-1</td><td class="tdi">기자재 동작 확인 (빔프로젝터, HDMI, 마이크, 와이파이)</td><td class="tdn"></td><td class="tdo">이헌정, 정현만</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-1</td><td class="tdi">모바일 명찰 동작 테스트</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-1</td><td class="tdi">강사 최종 연락 (도착 시간, 주차, 동선)</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">D-1</td><td class="tdi">담당자 역할 분담 최종 확인</td><td class="tdn">등록, 안내, 기록 담당 지정</td><td class="tdo">이헌정</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="sec" id="s-d0">
+    <div class="sh" onclick="ts('s-d0')"><div class="lft"><span class="pt-tag pd0">D-day</span><h2>과정 당일</h2></div><div class="sr"><span class="scc" id="c-d0"></span><span class="cv">&#9660;</span></div></div>
+    <div class="sb">
+      <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
+      <tbody id="b-d0">
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">AM</td><td class="tdi">강의장 최종 세팅 완료 (시작 90분 전)</td><td class="tdn">다과 배치 포함</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">AM</td><td class="tdi">참가자 등록 및 모바일 명찰 확인</td><td class="tdn">미등록자 현장 안내</td><td class="tdo">이헌정, 박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">AM</td><td class="tdi">출결 현황 실시간 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">중식</td><td class="tdi">중식 배식 세팅 확인</td><td class="tdn">오색비빔밥 &amp; 밀면 세팅</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">PM</td><td class="tdi">현장 사진 / 영상 촬영</td><td class="tdn"></td><td class="tdo">박지은/김효경</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">PM</td><td class="tdi">만족도 조사 안내 및 배포</td><td class="tdn">과정 종료 전 배포</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">상시</td><td class="tdi">네트워킹 관련 문의 응대</td><td class="tdn"></td><td class="tdo">이상수, 이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">종료</td><td class="tdi">강의장 정리 및 기자재 반납</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="sec" id="s-po">
+    <div class="sh" onclick="ts('s-po')"><div class="lft"><span class="pt-tag ppo">사후</span><h2>과정 종료 후</h2></div><div class="sr"><span class="scc" id="c-po"></span><span class="cv">&#9660;</span></div></div>
+    <div class="sb">
+      <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
+      <tbody id="b-po">
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">+1일</td><td class="tdi">출결 최종 집계 및 보고</td><td class="tdn">참석률, 결석자 사유 포함</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">+1일</td><td class="tdi">만족도 조사 결과 취합 및 분석</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">+3일</td><td class="tdi">사진 / 결과물 공유 드라이브 업로드</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">+1주</td><td class="tdi">운영 결과 보고서 작성</td><td class="tdn">교육효과, 개선사항 포함</td><td class="tdo">이헌정, 박선미</td></tr>
+        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div></td><td class="tdt">+1주</td><td class="tdi">차기 과정 개선사항 정리 및 팀 공유</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div><!-- /tc-cl -->
+
+
+<div id="tc-sv" class="tc">
+  <div class="card" style="margin-bottom:13px;">
+    <h3>사전설문 문항 구성</h3>
+    <div class="csub">총 11문항 · 0~24점 · 소요 3~5분</div>
+    <div style="font-size:.75rem;font-weight:600;color:var(--navy);margin-bottom:7px;">측정 문항 (Q1~Q8) · 각 0~3점</div>
+    <table class="qt" style="margin-bottom:13px;">
+      <thead><tr><th>번호</th><th>문항</th><th style="text-align:right">난이도</th></tr></thead>
+      <tbody>
+        <tr><td class="qn">Q1</td><td>최근 3개월간 Claude를 업무에 얼마나 자주 사용하셨습니까?</td><td style="text-align:right"><span class="db de">쉬움</span></td></tr>
+        <tr><td class="qn">Q2</td><td>현재 Claude 유료 플랜을 이용하고 계십니까?</td><td style="text-align:right"><span class="db de">쉬움</span></td></tr>
+        <tr><td class="qn">Q3</td><td>Claude Desktop 앱(맥/윈도우 데스크톱 클라이언트)을 설치하여 사용해 보신 적이 있습니까?</td><td style="text-align:right"><span class="db dm">중간</span></td></tr>
+        <tr><td class="qn">Q4</td><td>Claude Code(터미널 기반 Agentic AI)를 사용해 보신 적이 있습니까? <span class="qs">★</span></td><td style="text-align:right"><span class="db dh">어려움</span></td></tr>
+        <tr><td class="qn">Q5</td><td>Microsoft Copilot(M365 Copilot / GitHub Copilot 등)을 업무에 활용해 보신 적이 있습니까?</td><td style="text-align:right"><span class="db dm">중간</span></td></tr>
+        <tr><td class="qn">Q6</td><td>LG AI 연구원의 EXAONE 기반 서비스(Chat엑사원, 엘지니어스 등)를 얼마나 활용하고 계십니까?</td><td style="text-align:right"><span class="db dm">중간</span></td></tr>
+        <tr><td class="qn">Q7</td><td>본인 업무에 맞게 AI 에이전트(GPTs, Gems, Claude Projects, Copilot Agent 등)를 만들거나 커스터마이징해 본 경험이 있습니까?</td><td style="text-align:right"><span class="db dh">어려움</span></td></tr>
+        <tr><td class="qn">Q8</td><td>컴퓨터 터미널(명령 프롬프트)을 사용해 보신 경험이 있습니까?</td><td style="text-align:right"><span class="db dv">매우 어려움</span></td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:.69rem;color:var(--red);margin-bottom:12px;">★ Q4는 오후 Claude Code 세션 출발 난이도를 결정하는 핵심 변별 문항</div>
+    <div style="font-size:.75rem;font-weight:600;color:var(--navy);margin-bottom:7px;">분류 문항 (C1~C3) · 점수 미반영</div>
+    <table class="qt">
+      <tbody>
+        <tr><td class="qn">C1</td><td style="font-size:.75rem;">관심 분야 (RESEARCH / DECISION / AUTOMATION / CUSTOM-AGENT)</td></tr>
+        <tr><td class="qn">C2</td><td style="font-size:.75rem;">AI로 해결하고 싶은 본부 업무 과제 (자유서술 200자)</td></tr>
+        <tr><td class="qn">C3</td><td style="font-size:.75rem;">강사 사전 요청사항 (PC 환경·보안 제약·선호 학습방식 등)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:11px;">설문 링크</h3><div class="lid">Google Sheets · 분반 편성 기초 자료</div></div><a class="lbtn" href="#" onclick="ol(event,'link_survey_result')">열기 →</a></div>
+  </div>
+</div><!-- /tc-sv -->
+
+<div id="tc-bn" class="tc">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;">
+
+    <!-- A반 -->
+    <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--sh);">
+      <div style="background:linear-gradient(135deg,#1e6e9e,#2980b9);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:.85rem;font-weight:700;color:#fff;">A반 · 기초</div>
+          <div style="font-size:.69rem;color:rgba(255,255,255,.75);margin-top:2px;">심화 진입 초기 (0~6점)</div>
+        </div>
+        <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:8px 14px;text-align:center;">
+          <div style="font-size:1.6rem;font-weight:700;color:#fff;font-family:'DM Mono',monospace;line-height:1;">27</div>
+          <div style="font-size:.65rem;color:rgba(255,255,255,.8);">명</div>
+        </div>
+      </div>
+      <div style="padding:14px 16px;background:#fff;">
+        <div class="bn-section-title">5월 조직 구성</div>
+        <div class="bn-org-grid">
+          <span class="bn-org-l">본사</span><span class="bn-org-r">11명</span>
+          <span class="bn-org-l">MS사업본부</span><span class="bn-org-r">8명</span>
+          <span class="bn-org-l">고가혁부문</span><span class="bn-org-r">4명</span>
+          <span class="bn-org-l">HS사업본부</span><span class="bn-org-r">3명</span>
+          <span class="bn-org-l">ES사업본부</span><span class="bn-org-r">1명</span>
+          <span class="bn-org-l"></span><span class="bn-org-r"></span>
+        </div>
+        <div class="bn-divider"></div>
+        <div class="bn-section-title">직책 구성</div>
+        <div class="bn-text">상무 17 · 담당 6 · 전무 2 · 부사장 1 · 연구소장 1</div>
+        <div class="bn-divider"></div>
+        <div class="bn-section-title">주요 직무</div>
+        <div class="bn-text">재경 3 · 구매 3 · 인사 3 · R&amp;D 2 · CS 2</div>
+        <div class="bn-divider"></div>
+        <div class="bn-special">
+          <span class="bn-dot bn-dot-gold"></span>
+          <span><strong>경영진 1명 · 신임담당 1명</strong><br><span style="font-size:.69rem;color:#888;">김창태(CFO/CRO 부사장) · 장원석</span></span>
+        </div>
+        <div class="bn-special" style="margin-top:6px;">
+          <span class="bn-dot bn-dot-gray"></span>
+          <span style="font-size:.75rem;color:#666;">오전 결석 3명 (백선필·이동철·김창태)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- B반 -->
+    <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--sh);">
+      <div style="background:linear-gradient(135deg,#1e7e5e,#27ae60);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:.85rem;font-weight:700;color:#fff;">B반 · 표준</div>
+          <div style="font-size:.69rem;color:rgba(255,255,255,.75);margin-top:2px;">심화 진입·중급 (7~9점·미응답)</div>
+        </div>
+        <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:8px 14px;text-align:center;">
+          <div style="font-size:1.6rem;font-weight:700;color:#fff;font-family:'DM Mono',monospace;line-height:1;">29</div>
+          <div style="font-size:.65rem;color:rgba(255,255,255,.8);">명</div>
+        </div>
+      </div>
+      <div style="padding:14px 16px;background:#fff;">
+        <div class="bn-section-title">5월 조직 구성</div>
+        <div class="bn-org-grid">
+          <span class="bn-org-l">본사</span><span class="bn-org-r">9명</span>
+          <span class="bn-org-l">생기원</span><span class="bn-org-r">5명</span>
+          <span class="bn-org-l">HS사업본부</span><span class="bn-org-r">4명</span>
+          <span class="bn-org-l">MS사업본부</span><span class="bn-org-r">4명</span>
+          <span class="bn-org-l">CTO/디자인</span><span class="bn-org-r">3명</span>
+          <span class="bn-org-l">ES사업본부</span><span class="bn-org-r">3명</span>
+          <span class="bn-org-l">고가혁부문</span><span class="bn-org-r">1명</span>
+          <span class="bn-org-l"></span><span class="bn-org-r"></span>
+        </div>
+        <div class="bn-divider"></div>
+        <div class="bn-section-title">직책 구성</div>
+        <div class="bn-text">상무 14 · 담당 7 · 부사장 4 · 전무 2 · 연구소장 1 · 사장 1</div>
+        <div class="bn-divider"></div>
+        <div class="bn-section-title">주요 직무</div>
+        <div class="bn-text">R&amp;D 7 · Sales 5 · 전략 3 · 인사 3 · Design 3</div>
+        <div class="bn-divider"></div>
+        <div class="bn-special">
+          <span class="bn-dot bn-dot-gold"></span>
+          <span><strong>경영진 4명 · 부트캠프(25년) 2명 · 신임담당 1</strong><br><span style="font-size:.69rem;color:#888;">류재철(CEO) 윤태봉 송상호 이상수</span></span>
+        </div>
+        <div class="bn-special" style="margin-top:6px;">
+          <span class="bn-dot bn-dot-gray"></span>
+          <span style="font-size:.75rem;color:#666;">오전 결석 7명 / 오후 결석 1명(김찬수)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- C반 -->
+    <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--sh);">
+      <div style="background:linear-gradient(135deg,#8e6b00,#c8980a);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:.85rem;font-weight:700;color:#fff;">C반 · 심화</div>
+          <div style="font-size:.69rem;color:rgba(255,255,255,.75);margin-top:2px;">심화 중급·상급 (10점 이상)</div>
+        </div>
+        <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:8px 14px;text-align:center;">
+          <div style="font-size:1.6rem;font-weight:700;color:#fff;font-family:'DM Mono',monospace;line-height:1;">28</div>
+          <div style="font-size:.65rem;color:rgba(255,255,255,.8);">명</div>
+        </div>
+      </div>
+      <div style="padding:14px 16px;background:#fff;">
+        <div class="bn-section-title">5월 조직 구성</div>
+        <div class="bn-org-grid">
+          <span class="bn-org-l">HS사업본부</span><span class="bn-org-r">7명</span>
+          <span class="bn-org-l">MS사업본부</span><span class="bn-org-r">6명</span>
+          <span class="bn-org-l">본사</span><span class="bn-org-r">5명</span>
+          <span class="bn-org-l">생기원</span><span class="bn-org-r">5명</span>
+          <span class="bn-org-l">ES사업본부</span><span class="bn-org-r">2명</span>
+          <span class="bn-org-l">CTO/디자인</span><span class="bn-org-r">2명</span>
+          <span class="bn-org-l">한영본</span><span class="bn-org-r">1명</span>
+        </div>
+        <div class="bn-divider"></div>
+        <div class="bn-section-title">직책 구성</div>
+        <div class="bn-text">상무 18 · 담당 4 · 연구소장 3 · 사장 1 · 부사장 1 · 전무 1</div>
+        <div class="bn-divider"></div>
+        <div class="bn-section-title">주요 직무</div>
+        <div class="bn-text">R&amp;D 6 · SW 4 · Sales 4 · Marketing 2 · 사업총괄 2</div>
+        <div class="bn-divider"></div>
+        <div class="bn-special">
+          <span class="bn-dot bn-dot-gold"></span>
+          <span><strong>경영진 1명 · 신임담당 2 · 부트캠프 2</strong><br><span style="font-size:.69rem;color:#888;">정대화(생산기술원장·사장)</span></span>
+        </div>
+        <div class="bn-special" style="margin-top:6px;">
+          <span class="bn-dot bn-dot-gray"></span>
+          <span style="font-size:.75rem;color:#666;">오전 결석 7명 (해외영업·CX센터 등)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 분반 편성 로직 -->
+  <div class="card">
+    <h3 style="margin-bottom:10px;">분반 편성 로직</h3>
+    <div class="csub">Q1~Q8 합산(0~24점) 내림차순 → 상·중·하위 30명씩</div>
+    <ul class="rl">
+      <li><span class="rd"></span><span class="rt">본부 균형</span><span>동일 본부 인원이 한 반에 몰리지 않도록 분산 배치</span></li>
+      <li><span class="rd"></span><span class="rt">Q4+Q8 동시 0점</span><span>보조강사 밀착 지원 → A반 우선 편성</span></li>
+      <li><span class="rd"></span><span class="rt">Q4 ≥ 2</span><span>C반 우선 편성, 자율 탐색 시나리오 배정</span></li>
+      <li><span class="rd"></span><span class="rt">C1=CUSTOM-AGENT &amp; Q7≥2</span><span>1:1 에이전트 제작 시간 우선 배정 (반 무관)</span></li>
+      <li><span class="rd"></span><span class="rt">C2 자유서술</span><span>강사 사전 리뷰 → 업무 맥락 즉시 시연 준비</span></li>
+    </ul>
+  </div>
+</div><!-- /tc-bn -->
+
+
+</div><!-- /cont -->
+
+<script>
+function sw(n,b){document.querySelectorAll('.tc').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tb').forEach(x=>x.classList.remove('active'));document.getElementById('tc-'+n).classList.add('active');b.classList.add('active');}
+function ts(id){document.getElementById(id).classList.toggle('op');}
+function tr2(r){r.classList.toggle('dn');sv();up();}
+function up(){
+  var all=document.querySelectorAll('.cr'),done=document.querySelectorAll('.cr.dn');
+  var t=all.length,c=done.length,p=t?Math.round(c/t*100):0;
+  var circ=2*Math.PI*18;
+  document.getElementById('rfl').style.strokeDashoffset=circ-(p/100)*circ;
+  document.getElementById('pct').textContent=p+'%';
+  document.getElementById('pcnt').textContent=c+' / '+t;
+  document.getElementById('psts').textContent=p===100?'🎉 모든 항목 완료!':c===0?'항목 체크 시작':'진행 중';
+  [['d3','b-d3'],['d2','b-d2'],['d1','b-d1'],['d0','b-d0'],['po','b-po']].forEach(function(x){
+    var b=document.getElementById(x[1]);if(!b)return;
+    var el=document.getElementById('c-'+x[0]);
+    if(el)el.textContent=b.querySelectorAll('.cr.dn').length+'/'+b.querySelectorAll('.cr').length;
+  });
+}
+function sv(){
+  var s=Array.from(document.querySelectorAll('.cr')).map(function(r){return r.classList.contains('dn')?1:0;});
+  localStorage.setItem('ax3_cl',JSON.stringify(s));
+}
+function ld(){
+  try{
+    var s=JSON.parse(localStorage.getItem('ax3_cl')||'[]');
+    document.querySelectorAll('.cr').forEach(function(r,i){if(s[i])r.classList.add('dn');});
+  }catch(e){}
+}
+function ra(){if(!confirm('모든 체크 항목을 초기화할까요?'))return;document.querySelectorAll('.cr').forEach(function(r){r.classList.remove('dn');});localStorage.removeItem('ax3_cl');up();}
+var ld2=[
+  {key:'link_guide',label:'과정 안내 HTML'},
+  {key:'link_survey',label:'사전 설문'},
+  {key:'link_survey_result',label:'설문 결과 시트'},
+  {key:'link_classdiv',label:'분반 편성 로직'},
+  {key:'link_badge',label:'모바일 명찰'},
+  {key:'link_sheet',label:'운영 관리 시트'},
+  {key:'link_facility',label:'러닝센터 시설 안내'},
+];
+function gl(){try{return JSON.parse(localStorage.getItem('ax3_lk')||'{}')}catch{return{}}}
+function sl(){
+  var ins=document.querySelectorAll('#le input'),lks={};
+  ins.forEach(function(i){lks[i.dataset.key]=i.value.trim();});
+  localStorage.setItem('ax3_lk',JSON.stringify(lks));
+  alert('저장되었습니다.');
+}
+function ol(e,k){e.preventDefault();var u=(gl())[k]||df[k];if(u)window.open(u,'_blank');else alert('링크 탭에서 URL을 설정해주세요.');}
+var df={
+  link_survey:'https://surveyl.ink/Gd43j6',
+  link_guide:'https://lgax2.netlify.app/',
+  link_badge:'https://lgehqex.github.io/learningcenter/DNT',
+  link_survey_result:'',link_classdiv:'',link_sheet:'',link_facility:''
+};
+function ble(){
+  var lks=gl(),ed=document.getElementById('le');
+  ed.innerHTML='';
+  ld2.forEach(function(x){
+    var row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:7px;';
+    row.innerHTML='<label style="font-size:.7rem;color:#666;width:110px;flex-shrink:0;">'+x.label+'</label><input data-key="'+x.key+'" type="url" placeholder="https://" value="'+(lks[x.key]||df[x.key]||'')+'" style="flex:1;font-size:.7rem;border:1px solid #e0e0e0;border-radius:5px;padding:5px 8px;outline:none;font-family:inherit;">';
+    ed.appendChild(row);
+  });
+}
+ld();up();ble();
+</script>
+</body>
+</html>
