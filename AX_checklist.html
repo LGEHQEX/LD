@@ -142,51 +142,7 @@
   .add-row-btn:hover{color:var(--navy);background:#f0f4ff;}
   .edit-active .add-row-btn{display:block;}
   #editToggle.on{background:var(--red) !important;border-color:var(--red) !important;}
-  .aitool-btn{font-size:.65rem;background:#eef2ff;color:#1e2d4e;border:1px solid #c5cff5;border-radius:5px;padding:2px 8px;cursor:pointer;margin-left:6px;font-family:'Noto Sans KR',sans-serif;vertical-align:middle;}
-  .aitool-btn:hover{background:#dde5ff;}
 
-  /* AI Tool 팝업 */
-  .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:1000;align-items:center;justify-content:center;}
-  .popup-overlay.show{display:flex;}
-  .popup-box{background:#fff;border-radius:14px;width:90%;max-width:700px;max-height:88vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,0.25);font-family:'Noto Sans KR',sans-serif;}
-  .popup-header{padding:18px 22px 14px;border-bottom:1px solid #eee;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
-  .popup-header h2{font-size:1.05rem;font-weight:700;color:#1e2d4e;line-height:1.4;}
-  .popup-header .sub{font-size:.73rem;color:#999;margin-top:3px;}
-  .popup-close{background:none;border:none;font-size:1.3rem;color:#bbb;cursor:pointer;flex-shrink:0;line-height:1;padding:0;}
-  .popup-close:hover{color:#333;}
-  .popup-body{padding:20px 22px;}
-  .popup-top-note{font-size:.68rem;color:#aaa;text-align:center;margin-bottom:16px;letter-spacing:.05em;}
-  .popup-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
-  @media(max-width:540px){.popup-grid{grid-template-columns:1fr;}}
-  .popup-section-title{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:700;color:#1e2d4e;margin-bottom:12px;}
-  .popup-section-num{width:24px;height:24px;background:#1e2d4e;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;}
-  /* 계정 만료 카드 */
-  .expiry-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-  .expiry-card{border:1.5px solid #e0e0e0;border-radius:8px;padding:12px 14px;}
-  .expiry-card .tool-name{font-size:.8rem;font-weight:600;color:#555;margin-bottom:4px;}
-  .expiry-card .tool-date{font-size:1.15rem;font-weight:700;color:#1e2d4e;margin-bottom:3px;}
-  .expiry-card .tool-date.urgent{color:#A50034;}
-  .expiry-card .tool-note{font-size:.68rem;color:#999;}
-  .expiry-card .tool-note.urgent{color:#A50034;}
-  /* 보안 흐름 */
-  .security-flow{background:#1e2d4e;border-radius:8px;padding:14px 16px;color:#fff;margin-bottom:12px;}
-  .security-flow .flow-title{font-size:.72rem;font-weight:600;opacity:.7;margin-bottom:8px;letter-spacing:.05em;}
-  .security-flow .flow-step{font-size:.85rem;font-weight:600;line-height:2;}
-  .security-flow .flow-arrow{opacity:.5;font-size:.75rem;}
-  .security-flow .flow-note{font-size:.68rem;opacity:.6;margin-top:6px;}
-  /* STEP 카드 */
-  .step-card{border:1.5px solid #d0d8e8;border-radius:8px;padding:13px 15px;margin-bottom:10px;}
-  .step-card:last-child{margin-bottom:0;}
-  .step-label{font-size:.65rem;font-weight:700;color:#1e2d4e;letter-spacing:.08em;margin-bottom:5px;opacity:.7;}
-  .step-title{font-size:.88rem;font-weight:700;color:#1e2d4e;margin-bottom:6px;}
-  .step-desc{font-size:.75rem;color:#666;line-height:1.6;}
-  .step-desc .arr{color:#1e2d4e;font-weight:600;}
-  .recommend-box{background:#f0fff4;border:1.5px solid #b2dfdb;border-radius:8px;padding:12px 15px;}
-  .recommend-box .rec-title{font-size:.8rem;font-weight:700;color:#1b5e20;margin-bottom:6px;}
-  .recommend-box ul{list-style:none;padding:0;}
-  .recommend-box ul li{font-size:.78rem;color:#2e7d32;line-height:1.8;}
-  .recommend-box ul li::before{content:'• ';font-weight:700;}
-  .popup-footer{font-size:.68rem;color:#bbb;text-align:right;padding:10px 22px 16px;}
 </style>
 </head>
 <body>
@@ -215,6 +171,7 @@
     <button class="tb active" onclick="sw('cl',this)">&#10003; 운영 체크리스트</button>
     <button class="tb" onclick="sw('sv',this)">&#128221; 사전설문</button>
     <button class="tb" onclick="sw('bn',this)">&#127919; 분반 현황</button>
+    <button class="tb" onclick="sw('op',this)">&#128101; 운영진</button>
     
   </div>
 </header>
@@ -289,7 +246,7 @@
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">중식</td><td class="tdi">중식 배식 세팅 확인</td><td class="tdn">오색비빔밥 &amp; 밀면 세팅</td><td class="tdo">이헌정</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">현장 사진 / 영상 촬영</td><td class="tdn"></td><td class="tdo">박지은, 김효경(영상)</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">만족도 조사 안내 및 배포</td><td class="tdn">과정 종료 전 배포</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">현업 복귀 시 AI Tool 사용 안내 <button class="aitool-btn">안내문 보기</button></td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">현업 복귀 시 AI Tool 사용 안내</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">상시</td><td class="tdi">네트워킹 관련 문의 응대</td><td class="tdn"></td><td class="tdo">이상수, 이헌정</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">종료</td><td class="tdi">강의장 정리 및 기자재 반납</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
       </tbody></table>
@@ -343,7 +300,11 @@
     </table>
   </div>
   <div class="card">
-    <h3 style="margin-bottom:11px;">설문 링크</h3><div class="lid">Google Sheets · 분반 편성 기초 자료</div></div><a class="lbtn" href="#" onclick="ol(event,'link_survey_result')">열기 →</a></div>
+    <h3 style="margin-bottom:11px;">설문 링크</h3>
+    <div class="li" style="padding:10px 0;">
+      <div><div class="lit">📝 사전 설문 (참가자용)</div><div class="lid">Q1~Q8 + C1~C3 · 3~5분</div></div>
+      <a class="lbtn" href="#" onclick="ol(event,'link_survey')">열기 →</a>
+    </div>
   </div>
 </div><!-- /tc-sv -->
 
@@ -489,6 +450,67 @@
   </div>
 </div><!-- /tc-bn -->
 
+<div id="tc-op" class="tc">
+  <div class="card">
+    <h3 style="margin-bottom:14px;">운영진 연락처</h3>
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f5f5f5;">
+          <th style="font-size:.72rem;font-weight:600;color:#888;padding:9px 14px;text-align:left;border-bottom:1px solid var(--border);">구분</th>
+          <th style="font-size:.72rem;font-weight:600;color:#888;padding:9px 14px;text-align:left;border-bottom:1px solid var(--border);">부서</th>
+          <th style="font-size:.72rem;font-weight:600;color:#888;padding:9px 14px;text-align:left;border-bottom:1px solid var(--border);">담당자</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #f2f2f2;">
+          <td style="padding:11px 14px;font-size:.83rem;font-weight:600;color:var(--navy);">Leadership Development팀</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;"></td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">박선미 책임</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f2f2f2;background:#fafafa;">
+          <td style="padding:11px 14px;font-size:.83rem;color:#888;">운영자</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;">교육서비스센터</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">이헌정 사원</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f2f2f2;">
+          <td style="padding:11px 14px;font-size:.83rem;color:#888;">빔프로젝터/시설</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;">지수INC</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">정현만 선임</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f2f2f2;background:#fafafa;">
+          <td style="padding:11px 14px;font-size:.83rem;color:#888;">빔프로젝터/시설</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;">지수INC</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">오태훈 사원</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f2f2f2;">
+          <td style="padding:11px 14px;font-size:.83rem;color:#888;">냉/난방기</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;">평택설비반</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">평택설비반</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f2f2f2;background:#fafafa;">
+          <td style="padding:11px 14px;font-size:.83rem;color:#888;">출입지원</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;">(주)아승</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">서문게이트</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f2f2f2;">
+          <td style="padding:11px 14px;font-size:.83rem;color:#888;">Privacy-i (파일업로드 등)</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;">보안서비스팀</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">신민철 선임</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f2f2f2;background:#fafafa;">
+          <td style="padding:11px 14px;font-size:.83rem;color:#888;">Privacy-i (파일업로드 등)</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;">IT인프라팀</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">한승익 책임</td>
+        </tr>
+        <tr>
+          <td style="padding:11px 14px;font-size:.83rem;font-weight:600;color:var(--navy);">교육담당자</td>
+          <td style="padding:11px 14px;font-size:.83rem;color:#555;"></td>
+          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);"></td>
+        </tr>
+      </tbody>
+    </table>
+</div><!-- /tc-op -->
+
 
 </div><!-- /cont -->
 
@@ -595,12 +617,7 @@ function stopProp(e){ e.stopPropagation(); }
 
 // 행 클릭: 편집 모드면 무시, 아니면 체크
 document.addEventListener('click', function(e){
-  // 안내문 보기 버튼
-  if(e.target.classList && e.target.classList.contains('aitool-btn')){
-    var popup = document.getElementById('aitoolPopup');
-    if(popup) popup.classList.add('show');
-    return;
-  }
+
   var row = e.target.closest('.cr');
   if(!row) return;
   if(row.getAttribute('data-editing')) return;
@@ -675,7 +692,7 @@ function loadEdits(){
         row.className = 'cr' + (r.d ? ' dn' : '');
         var tdiContent = r.i;
         if(r.i.indexOf('AI Tool 사용 안내') !== -1 || r.i.indexOf('만족도 조사 안내') !== -1){
-          tdiContent = r.i + ' <button class="aitool-btn">안내문 보기</button>';
+          tdiContent = r.i + '';
         }
         row.innerHTML = '<td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td>'
           + '<td class="tdt">'+r.t+'</td>'
@@ -758,60 +775,7 @@ loadEdits();
 ld();
 up();
 
-function openAIToolPopup(e){ e.stopPropagation(); document.getElementById('aitoolPopup').classList.add('show'); }
-function closePopup(e){ if(e.target===document.getElementById('aitoolPopup')) document.getElementById('aitoolPopup').classList.remove('show'); }
 
 </script>
-<!-- AI Tool 사용 안내 팝업 -->
-<div id="aitoolPopup" class="popup-overlay" onclick="if(event.target===this)this.classList.remove('show')">
-  <div class="popup-box">
-    <div class="popup-header">
-      <div>
-        <h2>복귀 후 AI Tool 사용 방안</h2>
-        <div class="sub">계정 만료 일정 및 사업장 내 AI Tool 접속 방법</div>
-      </div>
-      <button class="popup-close" onclick="document.getElementById('aitoolPopup').classList.remove('show')">×</button>
-    </div>
-    <div class="popup-body">
-      <div class="popup-top-note">LGE Internal Use Only</div>
-      <div class="popup-grid">
-        <div>
-          <div class="popup-section-title"><span class="popup-section-num">1</span><span>계정 만료 일정</span></div>
-          <div class="expiry-grid">
-            <div class="expiry-card"><div class="tool-name">Copilot</div><div class="tool-date">~ 7월 말까지</div><div class="tool-note">사용 가능</div></div>
-            <div class="expiry-card"><div class="tool-name">Claude</div><div class="tool-date urgent">~ 5월 말까지</div><div class="tool-note urgent">사용 가능 (조기 만료)</div></div>
-          </div>
-          <div class="security-flow">
-            <div class="flow-title">보안 프로세스 흐름</div>
-            <div class="flow-step">Site 접속 권한 획득</div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step">파일업로드 권한 획득</div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step">AI Tool 사용</div>
-            <div class="flow-note">승인된 사용자에게만 클라우드 업로드 권한 부여</div>
-          </div>
-        </div>
-        <div>
-          <div class="popup-section-title"><span class="popup-section-num">2</span><span>사업장 내 AI Tool 사용 방법</span></div>
-          <div class="step-card">
-            <div class="step-label">STEP 1</div>
-            <div class="step-title">Site 접속 - 비업무 사이트 차단 해제</div>
-            <div class="step-desc">EP-Request <span class="arr">→</span> IT Service 신청 <span class="arr">→</span> 비업무 사이트 차단 해제<br>대상: Gemini, Claude, Hotbokum, ChatGPT 등</div>
-          </div>
-          <div class="step-card">
-            <div class="step-label">STEP 2</div>
-            <div class="step-title">파일 업로드 권한 - Security Portal</div>
-            <div class="step-desc">PC, 모바일 보안 <span class="arr">→</span> Privacy-I DLP <span class="arr">→</span> 권한유형: 파일업로드 <span class="arr">→</span> 클라우드 선택</div>
-          </div>
-          <div class="recommend-box">
-            <div class="rec-title">✓ 권장 조치</div>
-            <ul><li>교육 후 바로 보안해제 신청 권장</li></ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="popup-footer">작성일: 2026.05.08</div>
-  </div>
-</div>
 </body>
 </html>
