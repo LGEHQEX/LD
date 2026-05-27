@@ -161,7 +161,10 @@
         <div class="sts" id="psts">항목 체크 시작</div>
       </div>
     </div>
+    <div style="display:flex;gap:7px;align-items:center;">
     <button id="editToggle" onclick="toggleEdit()" style="font-size:.72rem;font-weight:600;background:rgba(255,255,255,0.15);color:white;border:1.5px solid rgba(255,255,255,0.4);padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">✏️ 편집 모드</button>
+    <button onclick="downloadHTML()" style="font-size:.72rem;font-weight:600;background:rgba(255,255,255,0.15);color:white;border:1.5px solid rgba(255,255,255,0.4);padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">⬇️ HTML 저장</button>
+  </div>
 </div>
   <div class="tabs">
     <button class="tb active" onclick="sw('cl',this)">&#10003; 운영 체크리스트</button>
@@ -186,15 +189,15 @@
     <div class="sb">
       <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
       <tbody id="b-d3">
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">사전 설문 현황 업데이트, 최종 대상정보 유관부서 공유</td><td class="tdn">업무혁신인프라, 교육서비스센터 등</td><td class="tdo">이헌정, 박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">사전 설문 숙련도 기준 3개 반 편성</td><td class="tdn">경영진 조 편성 포함</td><td class="tdo">박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">3개반 운영진 및 VIP 등록</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">Copilot / Claude 계정 확보</td><td class="tdn">업무혁신인프라팀</td><td class="tdo">이상수, 박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">네트워크/보안 TEST 및 AI 사이트 접속 체크</td><td class="tdn">Wi-Fi AP 추가 설치, 접속 안정성 확보</td><td class="tdo">이상수, 박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">참석안내 리마인드 메일/문자 송부</td><td class="tdn">참석자 대상</td><td class="tdo">박선미, 이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">사무용품/다과 준비/세팅 및 중식 체크</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">사외강사 VIP 등록</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">중식메뉴 체크</td><td class="tdn">오색비빔밥 &amp; 밀면</td><td class="tdo">이헌정, 박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">사전 설문 현황 업데이트, 최종 대상정보 유관부서 공유</td><td class="tdn">업무혁신인프라, 교육서비스센터 등</td><td class="tdo">이헌정, 박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">사전 설문 숙련도 기준 3개 반 편성</td><td class="tdn">경영진 조 편성 포함</td><td class="tdo">박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">3개반 운영진 및 VIP 등록</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">Copilot / Claude 계정 확보</td><td class="tdn">업무혁신인프라팀</td><td class="tdo">이상수, 박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">네트워크/보안 TEST 및 AI 사이트 접속 체크</td><td class="tdn">Wi-Fi AP 추가 설치, 접속 안정성 확보</td><td class="tdo">이상수, 박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">참석안내 리마인드 메일/문자 송부</td><td class="tdn">참석자 대상</td><td class="tdo">박선미, 이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">사무용품/다과 준비/세팅 및 중식 체크</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">사외강사 VIP 등록</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-3</td><td class="tdi">중식메뉴 체크</td><td class="tdn">오색비빔밥 &amp; 밀면</td><td class="tdo">이헌정, 박선미</td></tr>
       </tbody></table>
       <button class="add-row-btn" onclick="addRow(this)">+ 항목 추가</button>
     </div>
@@ -205,10 +208,10 @@
     <div class="sb">
       <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
       <tbody id="b-d2">
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-2</td><td class="tdi">강의장 세팅 및 Projector/Screen 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-2</td><td class="tdi">참석자 명찰(종이) 제작</td><td class="tdn">분반 정보, Google ID/PWD 포함</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-2</td><td class="tdi">모바일 명찰 데이터 최종 업로드</td><td class="tdn">참가자 명단 반영, 패스코드 설정</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-2</td><td class="tdi">교재 및 운영 자료 인쇄 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-2</td><td class="tdi">강의장 세팅 및 Projector/Screen 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-2</td><td class="tdi">참석자 명찰(종이) 제작</td><td class="tdn">분반 정보, Google ID/PWD 포함</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-2</td><td class="tdi">모바일 명찰 데이터 최종 업로드</td><td class="tdn">참가자 명단 반영, 패스코드 설정</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-2</td><td class="tdi">교재 및 운영 자료 인쇄 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
       </tbody></table>
       <button class="add-row-btn" onclick="addRow(this)">+ 항목 추가</button>
     </div>
@@ -219,11 +222,11 @@
     <div class="sb">
       <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
       <tbody id="b-d1">
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">강의장 최종 점검 (좌석, 온도, 조명, 음향)</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">기자재 동작 확인 (빔프로젝터, HDMI, 마이크, 와이파이)</td><td class="tdn"></td><td class="tdo">이헌정, 정현만</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">모바일 명찰 동작 테스트</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">강사 최종 연락 (도착 시간, 주차, 동선)</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">담당자 역할 분담 최종 확인</td><td class="tdn">등록, 안내, 기록 담당 지정</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">강의장 최종 점검 (좌석, 온도, 조명, 음향)</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">기자재 동작 확인 (빔프로젝터, HDMI, 마이크, 와이파이)</td><td class="tdn"></td><td class="tdo">이헌정, 정현만</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">모바일 명찰 동작 테스트</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">강사 최종 연락 (도착 시간, 주차, 동선)</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">D-1</td><td class="tdi">담당자 역할 분담 최종 확인</td><td class="tdn">등록, 안내, 기록 담당 지정</td><td class="tdo">이헌정</td></tr>
       </tbody></table>
       <button class="add-row-btn" onclick="addRow(this)">+ 항목 추가</button>
     </div>
@@ -234,14 +237,14 @@
     <div class="sb">
       <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
       <tbody id="b-d0">
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">강의장 최종 세팅 완료 (시작 90분 전)</td><td class="tdn">다과 배치 포함</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">참가자 등록 및 모바일 명찰 확인</td><td class="tdn">미등록자 현장 안내</td><td class="tdo">이헌정, 박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">출결 현황 실시간 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">중식</td><td class="tdi">중식 배식 세팅 확인</td><td class="tdn">오색비빔밥 &amp; 밀면 세팅</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">현장 사진 / 영상 촬영</td><td class="tdn"></td><td class="tdo">박지은/김효경</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">만족도 조사 안내 및 배포</td><td class="tdn">과정 종료 전 배포</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">상시</td><td class="tdi">네트워킹 관련 문의 응대</td><td class="tdn"></td><td class="tdo">이상수, 이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">종료</td><td class="tdi">강의장 정리 및 기자재 반납</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">강의장 최종 세팅 완료 (시작 90분 전)</td><td class="tdn">다과 배치 포함</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">참가자 등록 및 모바일 명찰 확인</td><td class="tdn">미등록자 현장 안내</td><td class="tdo">이헌정, 박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">출결 현황 실시간 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">중식</td><td class="tdi">중식 배식 세팅 확인</td><td class="tdn">오색비빔밥 &amp; 밀면 세팅</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">현장 사진 / 영상 촬영</td><td class="tdn"></td><td class="tdo">박지은/김효경</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">만족도 조사 안내 및 배포</td><td class="tdn">과정 종료 전 배포</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">상시</td><td class="tdi">네트워킹 관련 문의 응대</td><td class="tdn"></td><td class="tdo">이상수, 이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">종료</td><td class="tdi">강의장 정리 및 기자재 반납</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
       </tbody></table>
       <button class="add-row-btn" onclick="addRow(this)">+ 항목 추가</button>
     </div>
@@ -252,11 +255,11 @@
     <div class="sb">
       <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
       <tbody id="b-po">
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+1일</td><td class="tdi">출결 최종 집계 및 보고</td><td class="tdn">참석률, 결석자 사유 포함</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+1일</td><td class="tdi">만족도 조사 결과 취합 및 분석</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+3일</td><td class="tdi">사진 / 결과물 공유 드라이브 업로드</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+1주</td><td class="tdi">운영 결과 보고서 작성</td><td class="tdn">교육효과, 개선사항 포함</td><td class="tdo">이헌정, 박선미</td></tr>
-        <tr class="cr" onclick="tr2(this)"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+1주</td><td class="tdi">차기 과정 개선사항 정리 및 팀 공유</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+1일</td><td class="tdi">출결 최종 집계 및 보고</td><td class="tdn">참석률, 결석자 사유 포함</td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+1일</td><td class="tdi">만족도 조사 결과 취합 및 분석</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+3일</td><td class="tdi">사진 / 결과물 공유 드라이브 업로드</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+1주</td><td class="tdi">운영 결과 보고서 작성</td><td class="tdn">교육효과, 개선사항 포함</td><td class="tdo">이헌정, 박선미</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">+1주</td><td class="tdi">차기 과정 개선사항 정리 및 팀 공유</td><td class="tdn"></td><td class="tdo">박선미</td></tr>
       </tbody></table>
       <button class="add-row-btn" onclick="addRow(this)">+ 항목 추가</button>
     </div>
@@ -516,36 +519,42 @@ function toggleEdit(){
     btn.textContent = '✅ 편집 완료';
     btn.classList.add('on');
     cont.classList.add('edit-active');
-    enableEdit();
+    // 셀 편집 가능 + 행 클릭 막기
+    document.querySelectorAll('.cr').forEach(function(row){
+      row.setAttribute('data-editing','1');
+      row.querySelectorAll('.tdi,.tdn,.tdo,.tdt').forEach(function(cell){
+        cell.setAttribute('contenteditable','true');
+        cell.addEventListener('click', stopProp);
+      });
+    });
   } else {
     btn.textContent = '✏️ 편집 모드';
     btn.classList.remove('on');
     cont.classList.remove('edit-active');
+    // 편집 해제
+    document.querySelectorAll('.cr').forEach(function(row){
+      row.removeAttribute('data-editing');
+      row.querySelectorAll('.tdi,.tdn,.tdo,.tdt').forEach(function(cell){
+        cell.removeAttribute('contenteditable');
+        cell.removeEventListener('click', stopProp);
+      });
+    });
     saveEdits();
     alert('변경 내용이 저장되었습니다.');
   }
 }
 
-function enableEdit(){
-  // 주요 내용, 비고, 담당자 셀을 편집 가능하게
-  document.querySelectorAll('.cr').forEach(function(row){
-    row.querySelectorAll('.tdi,.tdn,.tdo,.tdt').forEach(function(cell){
-      cell.setAttribute('contenteditable','true');
-      cell.onclick = function(e){ e.stopPropagation(); };
-    });
-    // 체크 클릭 비활성화
-    row.onclick = null;
-  });
-}
+function stopProp(e){ e.stopPropagation(); }
 
-function disableEdit(){
-  document.querySelectorAll('.cr').forEach(function(row){
-    row.querySelectorAll('.tdi,.tdn,.tdo,.tdt').forEach(function(cell){
-      cell.removeAttribute('contenteditable');
-    });
-    row.onclick = function(){ tr2(this); };
-  });
-}
+// 행 클릭: 편집 모드면 무시, 아니면 체크
+document.addEventListener('click', function(e){
+  var row = e.target.closest('.cr');
+  if(!row) return;
+  if(row.getAttribute('data-editing')) return;
+  if(e.target.closest('.del-row')) return;
+  if(e.target.closest('.cc')) { tr2(row); return; }
+  if(e.target.tagName === 'TD' || e.target.closest('td')) { tr2(row); }
+});
 
 function delRow(e, btn){
   e.stopPropagation();
@@ -557,25 +566,28 @@ function delRow(e, btn){
 }
 
 function addRow(btn){
-  var tbody = btn.previousElementSibling.querySelector('tbody') || 
-              btn.closest('.sb').querySelector('tbody');
-  var firstRow = tbody.querySelector('.cr');
-  var timeVal = firstRow ? firstRow.querySelector('.tdt').textContent : '';
+  var sb = btn.closest('.sb');
+  var tbody = sb.querySelector('tbody');
+  var rows = tbody.querySelectorAll('.cr');
+  var timeVal = rows.length ? rows[0].querySelector('.tdt').textContent : '';
   var newRow = document.createElement('tr');
   newRow.className = 'cr';
-  newRow.onclick = function(){ tr2(this); };
+  newRow.setAttribute('data-editing','1');
   newRow.innerHTML = '<td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td>'
-    + '<td class="tdt" contenteditable="true" onclick="event.stopPropagation()">'+timeVal+'</td>'
-    + '<td class="tdi" contenteditable="true" onclick="event.stopPropagation()">새 항목</td>'
-    + '<td class="tdn" contenteditable="true" onclick="event.stopPropagation()"></td>'
-    + '<td class="tdo" contenteditable="true" onclick="event.stopPropagation()"></td>';
+    + '<td class="tdt" contenteditable="true">'+timeVal+'</td>'
+    + '<td class="tdi" contenteditable="true">새 항목</td>'
+    + '<td class="tdn" contenteditable="true"></td>'
+    + '<td class="tdo" contenteditable="true"></td>';
+  // stopProp 이벤트 추가
+  newRow.querySelectorAll('.tdi,.tdn,.tdo,.tdt').forEach(function(cell){
+    cell.addEventListener('click', stopProp);
+  });
   tbody.appendChild(newRow);
   newRow.querySelector('.tdi').focus();
   up();
 }
 
 function saveEdits(){
-  // 편집 내용 저장 (행별로 시간/내용/비고/담당자/완료여부)
   var sections = ['b-d3','b-d2','b-d1','b-d0','b-po'];
   var data = {};
   sections.forEach(function(sid){
@@ -584,16 +596,15 @@ function saveEdits(){
     data[sid] = [];
     tbody.querySelectorAll('.cr').forEach(function(row){
       data[sid].push({
-        t: row.querySelector('.tdt') ? row.querySelector('.tdt').textContent : '',
-        i: row.querySelector('.tdi') ? row.querySelector('.tdi').textContent : '',
-        n: row.querySelector('.tdn') ? row.querySelector('.tdn').textContent : '',
-        o: row.querySelector('.tdo') ? row.querySelector('.tdo').textContent : '',
+        t: (row.querySelector('.tdt')||{}).textContent||'',
+        i: (row.querySelector('.tdi')||{}).textContent||'',
+        n: (row.querySelector('.tdn')||{}).textContent||'',
+        o: (row.querySelector('.tdo')||{}).textContent||'',
         d: row.classList.contains('dn') ? 1 : 0
       });
     });
   });
   localStorage.setItem('ax3_edit', JSON.stringify(data));
-  disableEdit();
 }
 
 function loadEdits(){
@@ -603,12 +614,10 @@ function loadEdits(){
     Object.keys(data).forEach(function(sid){
       var tbody = document.getElementById(sid);
       if(!tbody) return;
-      // 기존 행 모두 삭제 후 저장된 데이터로 재구성
       tbody.innerHTML = '';
       data[sid].forEach(function(r){
         var row = document.createElement('tr');
         row.className = 'cr' + (r.d ? ' dn' : '');
-        row.onclick = function(){ tr2(this); };
         row.innerHTML = '<td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td>'
           + '<td class="tdt">'+r.t+'</td>'
           + '<td class="tdi">'+r.i+'</td>'
@@ -620,10 +629,73 @@ function loadEdits(){
   } catch(e){}
 }
 
-// loadEdits 먼저, 그 다음 체크 상태 로드
+function downloadHTML(){
+  // 편집 중이면 먼저 저장
+  if(editMode){ toggleEdit(); }
+
+  // 현재 체크리스트 행 데이터를 HTML에 반영한 새 파일 생성
+  var sections = [
+    {id:'b-d3', secId:'s-d3', phase:'pd3', phaseLabel:'D-3', title:'3일 전 준비', cntId:'c-d3'},
+    {id:'b-d2', secId:'s-d2', phase:'pd2', phaseLabel:'D-2', title:'2일 전 준비', cntId:'c-d2'},
+    {id:'b-d1', secId:'s-d1', phase:'pd1', phaseLabel:'D-1', title:'전날',         cntId:'c-d1'},
+    {id:'b-d0', secId:'s-d0', phase:'pd0', phaseLabel:'D-day', title:'과정 당일', cntId:'c-d0'},
+    {id:'b-po', secId:'s-po', phase:'ppo', phaseLabel:'사후',  title:'과정 종료 후', cntId:'c-po'},
+  ];
+
+  // 현재 페이지 HTML 복사 후 동적으로 변경된 tbody 내용 반영
+  var clone = document.documentElement.cloneNode(true);
+
+  sections.forEach(function(s){
+    var liveTbody = document.getElementById(s.id);
+    var cloneTbody = clone.querySelector('#'+s.id);
+    if(!liveTbody || !cloneTbody) return;
+
+    // 살아있는 DOM의 행을 클론에 복사 (체크 상태, 편집 내용 반영)
+    cloneTbody.innerHTML = '';
+    liveTbody.querySelectorAll('.cr').forEach(function(row){
+      var newRow = row.cloneNode(true);
+      // contenteditable 제거
+      newRow.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+      // data-editing 제거
+      newRow.removeAttribute('data-editing');
+      cloneTbody.appendChild(newRow);
+    });
+  });
+
+  // edit-active 클래스 제거
+  var cloneCont = clone.querySelector('.cont');
+  if(cloneCont) cloneCont.classList.remove('edit-active');
+
+  // editToggle 버튼 텍스트 초기화
+  var cloneBtn = clone.querySelector('#editToggle');
+  if(cloneBtn){ cloneBtn.textContent = '✏️ 편집 모드'; cloneBtn.classList.remove('on'); }
+
+  // localStorage 저장 데이터를 HTML 안에 인라인으로 넣어서 열자마자 반영
+  var editData = localStorage.getItem('ax3_edit') || 'null';
+  var checkData = localStorage.getItem('ax3_cl') || '[]';
+  var linkData = localStorage.getItem('ax3_lk') || '{}';
+  var inlineScript = clone.querySelector('script:last-of-type') || clone.querySelector('script');
+  // 스크립트 맨 앞에 데이터 프리로드 삽입
+  var preload = document.createElement('script');
+  preload.textContent = [
+    'try{ if('+editData+') localStorage.setItem("ax3_edit",''+editData.replace(/'/g,"\'")+'')}catch(e){}',
+    'try{ localStorage.setItem("ax3_cl",''+checkData.replace(/'/g,"\'")+'') }catch(e){}',
+    'try{ localStorage.setItem("ax3_lk",''+linkData.replace(/'/g,"\'")+'') }catch(e){}'
+  ].join('
+');
+  clone.querySelector('head').appendChild(preload);
+
+  var html = '<!DOCTYPE html>
+' + clone.outerHTML;
+  var blob = new Blob([html], {type:'text/html;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '임원AX_운영체크리스트.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
 loadEdits();
 ld();
 up();
 </script>
-</body>
-</html>
