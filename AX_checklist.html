@@ -142,7 +142,6 @@
   .add-row-btn:hover{color:var(--navy);background:#f0f4ff;}
   .edit-active .add-row-btn{display:block;}
   #editToggle.on{background:var(--red) !important;border-color:var(--red) !important;}
-
 </style>
 </head>
 <body>
@@ -171,7 +170,6 @@
     <button class="tb active" onclick="sw('cl',this)">&#10003; 운영 체크리스트</button>
     <button class="tb" onclick="sw('sv',this)">&#128221; 사전설문</button>
     <button class="tb" onclick="sw('bn',this)">&#127919; 분반 현황</button>
-    <button class="tb" onclick="sw('op',this)">&#128101; 운영진</button>
     
   </div>
 </header>
@@ -239,14 +237,12 @@
     <div class="sb">
       <table class="ct"><thead><tr><th></th><th class="ctt">시간</th><th>주요 내용</th><th class="ctn">비고</th><th class="cto">담당자</th></tr></thead>
       <tbody id="b-d0">
-        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">Claude / Copilot 사전 세팅 안내</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">강의장 최종 세팅 완료 (시작 90분 전)</td><td class="tdn">다과 배치 포함</td><td class="tdo">이헌정</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">참가자 등록 및 모바일 명찰 확인</td><td class="tdn">미등록자 현장 안내</td><td class="tdo">이헌정, 박선미</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">AM</td><td class="tdi">출결 현황 실시간 확인</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">중식</td><td class="tdi">중식 배식 세팅 확인</td><td class="tdn">오색비빔밥 &amp; 밀면 세팅</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">현장 사진 / 영상 촬영</td><td class="tdn"></td><td class="tdo">박지은, 김효경(영상)</td></tr>
+        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">현장 사진 / 영상 촬영</td><td class="tdn"></td><td class="tdo">박지은/김효경</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">만족도 조사 안내 및 배포</td><td class="tdn">과정 종료 전 배포</td><td class="tdo">이헌정</td></tr>
-        <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">PM</td><td class="tdi">현업 복귀 시 AI Tool 사용 안내</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">상시</td><td class="tdi">네트워킹 관련 문의 응대</td><td class="tdn"></td><td class="tdo">이상수, 이헌정</td></tr>
         <tr class="cr"><td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td><td class="tdt">종료</td><td class="tdi">강의장 정리 및 기자재 반납</td><td class="tdn"></td><td class="tdo">이헌정</td></tr>
       </tbody></table>
@@ -300,11 +296,7 @@
     </table>
   </div>
   <div class="card">
-    <h3 style="margin-bottom:11px;">설문 링크</h3>
-    <div class="li" style="padding:10px 0;">
-      <div><div class="lit">📝 사전 설문 (참가자용)</div><div class="lid">Q1~Q8 + C1~C3 · 3~5분</div></div>
-      <a class="lbtn" href="#" onclick="ol(event,'link_survey')">열기 →</a>
-    </div>
+    <h3 style="margin-bottom:11px;">설문 링크</h3><div class="lid">Google Sheets · 분반 편성 기초 자료</div></div><a class="lbtn" href="#" onclick="ol(event,'link_survey_result')">열기 →</a></div>
   </div>
 </div><!-- /tc-sv -->
 
@@ -450,67 +442,6 @@
   </div>
 </div><!-- /tc-bn -->
 
-<div id="tc-op" class="tc">
-  <div class="card">
-    <h3 style="margin-bottom:14px;">운영진 연락처</h3>
-    <table style="width:100%;border-collapse:collapse;">
-      <thead>
-        <tr style="background:#f5f5f5;">
-          <th style="font-size:.72rem;font-weight:600;color:#888;padding:9px 14px;text-align:left;border-bottom:1px solid var(--border);">구분</th>
-          <th style="font-size:.72rem;font-weight:600;color:#888;padding:9px 14px;text-align:left;border-bottom:1px solid var(--border);">부서</th>
-          <th style="font-size:.72rem;font-weight:600;color:#888;padding:9px 14px;text-align:left;border-bottom:1px solid var(--border);">담당자</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="border-bottom:1px solid #f2f2f2;">
-          <td style="padding:11px 14px;font-size:.83rem;font-weight:600;color:var(--navy);">Leadership Development팀</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;"></td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">박선미 책임</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f2f2f2;background:#fafafa;">
-          <td style="padding:11px 14px;font-size:.83rem;color:#888;">운영자</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;">교육서비스센터</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">이헌정 사원</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f2f2f2;">
-          <td style="padding:11px 14px;font-size:.83rem;color:#888;">빔프로젝터/시설</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;">지수INC</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">정현만 선임</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f2f2f2;background:#fafafa;">
-          <td style="padding:11px 14px;font-size:.83rem;color:#888;">빔프로젝터/시설</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;">지수INC</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">오태훈 사원</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f2f2f2;">
-          <td style="padding:11px 14px;font-size:.83rem;color:#888;">냉/난방기</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;">평택설비반</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">평택설비반</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f2f2f2;background:#fafafa;">
-          <td style="padding:11px 14px;font-size:.83rem;color:#888;">출입지원</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;">(주)아승</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">서문게이트</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f2f2f2;">
-          <td style="padding:11px 14px;font-size:.83rem;color:#888;">Privacy-i (파일업로드 등)</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;">보안서비스팀</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">신민철 선임</td>
-        </tr>
-        <tr style="border-bottom:1px solid #f2f2f2;background:#fafafa;">
-          <td style="padding:11px 14px;font-size:.83rem;color:#888;">Privacy-i (파일업로드 등)</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;">IT인프라팀</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);">한승익 책임</td>
-        </tr>
-        <tr>
-          <td style="padding:11px 14px;font-size:.83rem;font-weight:600;color:var(--navy);">교육담당자</td>
-          <td style="padding:11px 14px;font-size:.83rem;color:#555;"></td>
-          <td style="padding:11px 14px;font-size:.83rem;color:var(--dark);"></td>
-        </tr>
-      </tbody>
-    </table>
-</div><!-- /tc-op -->
-
 
 </div><!-- /cont -->
 
@@ -617,13 +548,10 @@ function stopProp(e){ e.stopPropagation(); }
 
 // 행 클릭: 편집 모드면 무시, 아니면 체크
 document.addEventListener('click', function(e){
-
   var row = e.target.closest('.cr');
   if(!row) return;
   if(row.getAttribute('data-editing')) return;
   if(e.target.closest('.del-row')) return;
-  if(e.target.tagName === 'BUTTON') return;
-  if(e.target.closest('button')) return;
   if(e.target.closest('.cc')) { tr2(row); return; }
   if(e.target.tagName === 'TD' || e.target.closest('td')) { tr2(row); }
 });
@@ -669,7 +597,7 @@ function saveEdits(){
     tbody.querySelectorAll('.cr').forEach(function(row){
       data[sid].push({
         t: (row.querySelector('.tdt')||{}).textContent||'',
-        i: (function(el){ if(!el) return ''; var t = el.cloneNode(true); t.querySelectorAll('button').forEach(function(b){b.remove();}); return t.textContent.trim(); })(row.querySelector('.tdi')),
+        i: (row.querySelector('.tdi')||{}).textContent||'',
         n: (row.querySelector('.tdn')||{}).textContent||'',
         o: (row.querySelector('.tdo')||{}).textContent||'',
         d: row.classList.contains('dn') ? 1 : 0
@@ -690,13 +618,9 @@ function loadEdits(){
       data[sid].forEach(function(r){
         var row = document.createElement('tr');
         row.className = 'cr' + (r.d ? ' dn' : '');
-        var tdiContent = r.i;
-        if(r.i.indexOf('AI Tool 사용 안내') !== -1 || r.i.indexOf('만족도 조사 안내') !== -1){
-          tdiContent = r.i + '';
-        }
         row.innerHTML = '<td class="tdc"><div class="cc"></div><button class="del-row" onclick="delRow(event,this)" title="삭제">×</button></td>'
           + '<td class="tdt">'+r.t+'</td>'
-          + '<td class="tdi">'+tdiContent+'</td>'
+          + '<td class="tdi">'+r.i+'</td>'
           + '<td class="tdn">'+r.n+'</td>'
           + '<td class="tdo">'+r.o+'</td>';
         tbody.appendChild(row);
@@ -774,8 +698,4 @@ function downloadHTML(){
 loadEdits();
 ld();
 up();
-
-
 </script>
-</body>
-</html>
