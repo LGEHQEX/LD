@@ -204,5 +204,5 @@ textarea{min-height:96px;resize:vertical}
 }
 .card.note{color:var(--sub);text-align:center;padding:18px}.card.note a{color:var(--accent);font-weight:700}
 .rank .rank-row{grid-template-columns:minmax(300px,1.4fr) 110px minmax(240px,2fr) 90px}
-.rank-row.daybreak{border-top:2px solid var(--ink)}
+
 @media (max-width:1100px){.rank .rank-row{grid-template-columns:1fr 80px}.rank .rank-row .stack{grid-column:1/-1}}
