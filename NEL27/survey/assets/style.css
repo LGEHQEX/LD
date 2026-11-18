@@ -106,25 +106,40 @@ textarea{min-height:96px;resize:vertical}
 .sec{font-size:17px;margin:26px 4px 10px;padding-left:10px;border-left:4px solid var(--accent)}
 .card.wide .bar{grid-template-columns:minmax(140px,340px) 1fr 100px}
 
-/* ───── PC 화면 (900px 이상) ───── */
+/* ───── 노트북·PC 화면 (900px 이상: 화면 폭에 비례해 커짐) ───── */
 @media (min-width:900px){
-  .wrap{max-width:880px;padding:40px 24px 80px}
-  .hero{padding:34px 36px;margin-bottom:22px}
-  .hero .course{font-size:15px}
-  .hero h1{font-size:30px}
-  .hero p{font-size:16px}
-  .sec{font-size:20px;margin:36px 4px 14px}
-  .q{padding:28px 32px;margin-bottom:16px}
-  .q-title{font-size:18px;margin-bottom:18px}
-  .chip{font-size:13px}
-  .likert{gap:10px}
-  .likert span{min-height:84px;font-size:13.5px}
-  .likert span b{font-size:22px}
-  .nps{gap:8px}
-  .nps span{height:54px;font-size:16px}
-  .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .opts label{padding:14px 16px;font-size:15.5px}
-  input[type=text],textarea{padding:14px 16px;font-size:16px}
-  textarea{min-height:120px}
-  .submit{padding:18px;font-size:18px}
+  .wrap{max-width:min(1200px,82vw);padding:clamp(32px,4vw,64px) 24px 100px}
+  .hero{padding:clamp(32px,3vw,52px) clamp(32px,3.4vw,60px);margin-bottom:26px;border-radius:20px}
+  .hero .course{font-size:clamp(15px,1.25vw,20px)}
+  .hero h1{font-size:clamp(30px,2.6vw,44px);margin-bottom:10px}
+  .hero p{font-size:clamp(16px,1.3vw,21px)}
+  .sec{font-size:clamp(20px,1.7vw,28px);margin:44px 4px 18px;border-left-width:6px;padding-left:14px}
+  .q{padding:clamp(28px,2.4vw,44px) clamp(30px,2.8vw,52px);margin-bottom:20px;border-radius:20px}
+  .q-title{font-size:clamp(18px,1.5vw,25px);margin-bottom:clamp(18px,1.6vw,28px);line-height:1.45}
+  .chip{font-size:clamp(13px,1vw,16px);padding:4px 14px;margin-bottom:12px}
+  .q .err-msg{font-size:clamp(13px,1vw,16px)}
+  .likert{gap:clamp(10px,1vw,16px)}
+  .likert span{min-height:clamp(84px,7vw,120px);font-size:clamp(13.5px,1.1vw,18px);border-radius:14px;border-width:2px}
+  .likert span b{font-size:clamp(22px,2vw,34px)}
+  .nps{gap:clamp(8px,.8vw,14px)}
+  .nps span{height:clamp(54px,4.6vw,76px);font-size:clamp(16px,1.4vw,24px);border-radius:12px}
+  .nps-ends{font-size:clamp(13px,1vw,16px)}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1vw,16px)}
+  .opts label{padding:clamp(14px,1.3vw,22px) clamp(16px,1.4vw,24px);font-size:clamp(15.5px,1.25vw,20px);border-radius:12px;gap:14px}
+  .opts label::before{flex-basis:clamp(18px,1.4vw,24px);height:clamp(18px,1.4vw,24px)}
+  .pick-count{font-size:clamp(13px,1.05vw,17px)}
+  input[type=text],textarea{padding:clamp(14px,1.2vw,20px) clamp(16px,1.4vw,22px);font-size:clamp(16px,1.25vw,20px);border-radius:12px}
+  textarea{min-height:clamp(120px,10vw,180px)}
+  .submit{padding:clamp(18px,1.6vw,26px);font-size:clamp(18px,1.5vw,24px);border-radius:16px}
+  .notice{font-size:clamp(14px,1.1vw,17px)}
+  .done{padding:80px 40px}.done h2{font-size:clamp(26px,2.2vw,36px)}.done p{font-size:clamp(16px,1.3vw,20px)}
+  .done .check{width:88px;height:88px;font-size:44px}
+
+  /* 대시보드도 넓은 화면 활용 */
+  .dash{max-width:min(1600px,94vw);padding:32px 28px 80px}
+  .dash-head h1{font-size:clamp(24px,2vw,34px)}
+  .card h3{font-size:clamp(15px,1.15vw,19px)}
+  .kpi .val{font-size:clamp(32px,2.8vw,48px)}
+  .bar{font-size:clamp(13px,.95vw,15.5px)}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(400px,1fr))}
 }
