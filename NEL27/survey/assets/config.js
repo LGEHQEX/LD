@@ -20,6 +20,7 @@ window.SURVEY_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbw4yBPRFfuNWkkgZQIw39w6fRaPBjeEDjj2SgGgKQj0kYaFIx2z7rbE06gUZ7ulQio/exec',
   COURSE_NAME: '신임 임원급 직책 보임자 과정',
   REFRESH_SEC: 30, // 대시보드 자동 새로고침 주기(초)
+  SHEET_URL: '', // (선택) 구글시트 주소를 넣으면 대시보드에 '구글시트 열기' 버튼이 생김
 
   // 5점 척도 라벨 세트 (문항에서 scale: '이름' 으로 지정, 미지정 시 agree)
   SCALES: {
@@ -29,6 +30,7 @@ window.SURVEY_CONFIG = {
 
   surveys: {
     pre: {
+      sheet: '사전설문', // 엑셀 다운로드 시 탭 이름 (GAS 의 시트 이름과 동일하게)
       title: '사전 설문',
       desc: '각 문항에 대해 현재 나의 확신 정도를 선택해 주세요. (약 3분)',
       // area: 요구 영역(참가자에게 표시) / lgway: 연계 LG Way 항목(대시보드에만 표시)
@@ -56,6 +58,7 @@ window.SURVEY_CONFIG = {
         { id: 'q10', type: 'likert', scale: 'confidence', area: '성과 실행', lgway: 'Speak up',
           label: '다른 의견을 편하게 말할 수 있는 조직을 만드는 방법을 알고 있다', required: true },
         { id: 'priority', type: 'multi', min: 3, max: 3, area: '우선순위 선택', required: true,
+          split: '우선순위 선택', // 시트에 '우선순위 선택 1/2/3' 열로 나눠 기록
           label: '이번 과정에서 가장 먼저 채우고 싶은 영역 3개를 골라 주세요',
           options: [
             'Q1 업무 위임 기준', 'Q2 산하 리더 역할 분담', 'Q3 외부 시장 변화 파악', 'Q4 조직 리스크 파악',
@@ -67,6 +70,7 @@ window.SURVEY_CONFIG = {
 
     // 모듈 문항은 MOD(id, 모듈명, 강사명)으로 생성 → 만족도(5점) + 기억에 남는 내용(주관식)
     day1: {
+      sheet: '만족도_1일',
       title: '1일차 설문 (11/30)',
       desc: '오늘 들으신 각 모듈에 대한 의견을 들려주세요.',
       questions: [
@@ -80,6 +84,7 @@ window.SURVEY_CONFIG = {
     },
 
     day2: {
+      sheet: '만족도_2일',
       title: '2일차 설문 (12/1)',
       desc: '각 모듈과 과정 전체에 대한 의견을 들려주세요.',
       questions: [
