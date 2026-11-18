@@ -202,3 +202,4 @@ textarea{min-height:96px;resize:vertical}
   .done{padding:80px 40px}.done h2{font-size:clamp(26px,2.2vw,36px)}.done p{font-size:clamp(16px,1.3vw,20px)}
   .done .check{width:88px;height:88px;font-size:44px}
 }
+.card.note{color:var(--sub);text-align:center;padding:18px}.card.note a{color:var(--accent);font-weight:700}
