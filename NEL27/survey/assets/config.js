@@ -5,6 +5,7 @@
  *  - type: likert(1~5) | nps(0~10) | single(단일선택) | multi(복수선택) | text | textarea
  *  - 선택지(options)에는 쉼표(,)를 넣지 마세요 (복수선택 구분자로 사용).
  *  - type: 'section' 은 설문 안의 구분 제목입니다.
+ *  - course: true 문항은 대시보드 '과정 만족도' 탭에 따로 모아 보여줍니다.
  */
 // 모듈 설문 문항 생성기 (주관식 필수로 바꾸려면 MEMO_REQUIRED = true)
 const MEMO_REQUIRED = false;
@@ -100,8 +101,8 @@ window.SURVEY_CONFIG = {
         { id: 'c_relevance', type: 'likert', course: true, label: '학습 내용은 업무(혹은 역할) 관련성이 높았다.', required: true },
         { id: 'c_method', type: 'likert', course: true, label: '학습 방법은 학습 내용 전달에 적절하였다.', required: true },
         { id: 'c_apply', type: 'likert', course: true, label: '학습한 내용을 실무에 활용할 것이다.', required: true },
-        { id: 'c_good', type: 'textarea', label: '신임 임원급 직책 보임자 과정에서 가장 긍정적인 경험은 무엇입니까?', required: false },
-        { id: 'c_bad', type: 'textarea', label: '신임 임원급 직책 보임자 과정에서 개선이 필요한 부정적인 경험은 무엇입니까?', required: false },
+        { id: 'c_good', type: 'textarea', course: true, label: '신임 임원급 직책 보임자 과정에서 가장 긍정적인 경험은 무엇입니까?', required: false },
+        { id: 'c_bad', type: 'textarea', course: true, label: '신임 임원급 직책 보임자 과정에서 개선이 필요한 부정적인 경험은 무엇입니까?', required: false },
       ],
     },
   },
