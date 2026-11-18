@@ -103,9 +103,33 @@
 
   /* ═════ 렌더 ═════ */
   function draw() {
-    $('tabs').innerHTML = [['overview', '전체 요약', null], ...KEYS.map(k => [k, C.surveys[k].title, DATA[k].n])]
+    const cq = courseQs();
+    const tabs = [['overview', '전체 요약', null], ...KEYS.map(k => [k, C.surveys[k].title, DATA[k].n])];
+    if (cq.likert.length) tabs.push(['course', '과정 만족도', cq.n]);
+    $('tabs').innerHTML = tabs
       .map(([k, t, n]) => `<button class="tab ${tab === k ? 'on' : ''}" data-k="${k}">${esc(t)}${n != null ? `<span class="cnt">${n}</span>` : ''}</button>`).join('');
-    $('body').innerHTML = tab === 'overview' || !DATA[tab] ? overview() : survey(DATA[tab]);
+    $('body').innerHTML = tab === 'course' && cq.likert.length ? coursePage(cq) : tab === 'overview' || !DATA[tab] ? overview() : survey(DATA[tab]);
+  }
+
+  // course: true 문항 모으기 (어느 설문에 있든)
+  function courseQs() {
+    const all = KEYS.flatMap(k => DATA[k].qs.filter(q => q.course).map(q => ({ ...q, k })));
+    const likert = all.filter(q => q.type === 'likert'), text = all.filter(q => q.type !== 'likert');
+    const ks = [...new Set(all.map(q => q.k))];
+    return { likert, text, n: ks.reduce((a, k) => a + DATA[k].n, 0), last: ks.map(k => DATA[k].last).filter(Boolean).sort().pop() };
+  }
+
+  function coursePage(cq) {
+    if (!cq.n) return `<div class="card"><p class="empty big">아직 응답이 없습니다.</p></div>`;
+    const ov = dist(cq.likert[0]);
+    const all = cq.likert.flatMap(q => q.vals.map(x => Number(x.v))).filter(v => v >= 1);
+    const avg = all.length ? all.reduce((a, b) => a + b, 0) / all.length : null;
+    let html = `<div class="kpis">${kpi('응답 수', cq.n, '명', cq.last ? '최근 제출 ' + fmtTime(cq.last) : '')}
+      ${kpi('전체 만족도', fmt(ov.avg), ' / 5', `긍정(4~5점) ${ov.top}%`, 'accent')}
+      ${kpi('과정 만족도 4개 문항 평균', fmt(avg), ' / 5', '100점 환산 ' + (avg ? Math.round(avg * 20) : '-') + '점')}</div>`;
+    html += courseBlock(cq.likert);
+    if (cq.text.length) html += `<div class="sec-h"><h2>주관식 응답</h2></div><div class="tgrid">${cq.text.map(q => `<div class="card">${texts(q.vals, q.label)}</div>`).join('')}</div>`;
+    return html;
   }
 
   function kpi(label, val, unit, foot, cls = '') {
@@ -117,11 +141,9 @@
       const d = DATA[k];
       return kpi(esc(d.S.title), d.n, '명', d.last ? '최근 제출 ' + fmtTime(d.last) : '응답 없음');
     });
-    const courseQ = KEYS.flatMap(k => DATA[k].qs.filter(q => q.course));
-    const overall = courseQ[0] ? dist(courseQ[0]) : null;
-    if (overall) tiles.push(kpi('과정 전체 만족도', overall.n ? fmt(overall.avg) : '-', ' / 5', `긍정(4~5점) ${overall.top}% · ${overall.n}명`, 'accent'));
-
-    let html = `<div class="kpis">${tiles.join('')}</div>`;
+    const courseQ = courseQs().likert;
+    let html = courseQ.length ? courseBlock(courseQ, '과정 만족도 (2일차)') : '';
+    html += `<div class="kpis">${tiles.join('')}</div>`;
 
     const mods = KEYS.flatMap(k => DATA[k].qs.filter(q => q.module).map(q => ({ k, q, d: dist(q) })))
       .sort((a, b) => (b.d.avg ?? -1) - (a.d.avg ?? -1));
@@ -136,12 +158,11 @@
             <span class="rank-meta">긍정 <b>${m.d.top}%</b><br>${m.d.n}명</span>
           </div>`).join('')}</div></div>`;
     }
-    if (courseQ.length) html += courseBlock(courseQ);
     return html;
   }
 
-  function courseBlock(qs) {
-    return `<div class="card"><div class="card-h"><h3>과정 만족도</h3>${legend(qs[0])}</div>
+  function courseBlock(qs, title = '과정 만족도') {
+    return `<div class="card"><div class="card-h"><h3>${esc(title)}</h3>${legend(qs[0])}</div>
       <div class="course">${qs.map(q => { const d = dist(q); return `
         <div class="course-item"><div class="course-q">${esc(q.label)}</div>
           <div class="course-s">${score(d.avg)}<span>긍정 <b>${d.top}%</b> · ${d.n}명</span></div>${stack(q, d)}</div>`; }).join('')}</div></div>`;
@@ -172,11 +193,10 @@
     }
 
     // ② 과정 만족도
+    // 과정 만족도 문항은 '과정 만족도' 탭에서 따로 표시
     const course = d.qs.filter(q => q.course);
-    if (course.length) {
-      course.forEach(q => used.add(q.id));
-      html += '<div style="height:18px"></div>' + courseBlock(course);
-    }
+    course.forEach(q => used.add(q.id));
+    if (course.length) html += `<div class="card note">과정 만족도 문항은 <a href="#course" data-go="course">과정 만족도 탭</a>에서 확인하세요.</div>`;
 
     // ③ 사전설문: 영역별 평균 + 문항
     html += areaCard(d);
@@ -289,6 +309,10 @@
   $('tabs').addEventListener('click', e => {
     const b = e.target.closest('.tab'); if (!b) return;
     tab = b.dataset.k; history.replaceState(null, '', '#' + tab); draw(); window.scrollTo(0, 0);
+  });
+  $('body').addEventListener('click', e => {
+    const a = e.target.closest('[data-go]'); if (!a) return;
+    e.preventDefault(); tab = a.dataset.go; history.replaceState(null, '', '#' + tab); draw(); window.scrollTo(0, 0);
   });
   $('refresh').addEventListener('click', load);
   $('download').addEventListener('click', download);
