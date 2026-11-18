@@ -11,7 +11,10 @@
 <div class="dash">
   <div class="dash-head">
     <div><div class="course" id="course"></div><h1>설문 응답 대시보드</h1></div>
-    <div class="status"><span class="dot" id="dot"></span><span id="updated">불러오는 중...</span><span id="countdown"></span><button class="btn" id="refresh">새로고침</button></div>
+    <div class="head-r">
+      <div class="status"><span class="dot" id="dot"></span><span id="updated">불러오는 중...</span><span id="countdown"></span></div>
+      <div class="actions"><button class="btn" id="refresh">새로고침</button><a class="btn" id="sheet" target="_blank" rel="noopener" hidden>구글시트 열기</a><button class="btn primary" id="download">엑셀 다운로드</button></div>
+    </div>
   </div>
   <div class="demo-banner" id="demo" hidden>데모 데이터로 표시 중입니다. assets/config.js 에 GAS_URL 을 입력하면 실제 응답이 표시됩니다.</div>
   <nav class="tabs" id="tabs"></nav>
