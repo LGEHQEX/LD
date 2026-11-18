@@ -142,16 +142,15 @@
       return kpi(esc(d.S.title), d.n, '명', d.last ? '최근 제출 ' + fmtTime(d.last) : '응답 없음');
     });
     const courseQ = courseQs().likert;
-    let html = courseQ.length ? courseBlock(courseQ, '과정 만족도 (2일차)') : '';
-    html += `<div class="kpis">${tiles.join('')}</div>`;
+    let html = `<div class="kpis">${tiles.join('')}</div>`;       // ① 참여 인원
+    if (courseQ.length) html += courseBlock(courseQ);              // ② 과정 만족도
 
-    const mods = KEYS.flatMap(k => DATA[k].qs.filter(q => q.module).map(q => ({ k, q, d: dist(q) })))
-      .sort((a, b) => (b.d.avg ?? -1) - (a.d.avg ?? -1));
+    // ③ 모듈별 만족도 (설문 문항 순서대로)
+    const mods = KEYS.flatMap(k => DATA[k].qs.filter(q => q.module).map(q => ({ k, q, d: dist(q) })));
     if (mods.length) {
-      html += `<div class="card"><div class="card-h"><h3>모듈별 만족도 순위</h3>${legend(mods[0].q)}</div>
+      html += `<div class="card"><div class="card-h"><h3>모듈별 만족도</h3>${legend(mods[0].q)}</div>
         <div class="rank">${mods.map((m, i) => `
-          <div class="rank-row">
-            <span class="rk">${i + 1}</span>
+          <div class="rank-row ${i && mods[i - 1].k !== m.k ? 'daybreak' : ''}">
             <div class="rank-name"><span class="day">${esc(dayName(m.k))}</span><b>${esc(m.q.module.name)}</b><small>${esc(m.q.module.who)}</small></div>
             ${score(m.d.avg)}
             ${stack(m.q, m.d)}
