@@ -19,7 +19,7 @@ function MOD(id, name, who) {
 
 window.SURVEY_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbw4yBPRFfuNWkkgZQIw39w6fRaPBjeEDjj2SgGgKQj0kYaFIx2z7rbE06gUZ7ulQio/exec',
-  COURSE_NAME: '신임 임원급 직책 보임자 과정',
+  COURSE_NAME: '신임 임원(급) 직책 보임자 과정',
   REFRESH_SEC: 30, // 대시보드 자동 새로고침 주기(초)
   SHEET_URL: 'https://docs.google.com/spreadsheets/d/1nufFI1ioJVJ-nDJzEZnhLVNkThiP0rUOi9Wh9DTU7BY/edit?usp=sharing', // (선택) 구글시트 주소를 넣으면 대시보드에 '구글시트 열기' 버튼이 생김
 
