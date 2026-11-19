@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>신임 임원(급) 직책 보임자 과정 · Survey</title>
+<title>설문</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="assets/style.css">
 <style>
   .links{display:flex;flex-direction:column;gap:clamp(12px,1.4vw,20px)}
-  .links a{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border:2px solid transparent;border-radius:18px;
+  .links a,.links .lk{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border:2px solid transparent;border-radius:18px;
     padding:clamp(24px,2.4vw,40px) clamp(24px,2.6vw,44px);color:inherit;text-decoration:none;transition:.15s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
   .links a:hover{border-color:var(--accent);transform:translateY(-2px)}
   .links .t{display:flex;flex-direction:column;gap:6px}
@@ -16,18 +16,44 @@
   .links small{color:var(--sub);font-size:clamp(14px,1.1vw,18px)}
   .links .go{flex:0 0 auto;width:clamp(44px,3.4vw,60px);height:clamp(44px,3.4vw,60px);border-radius:50%;background:var(--accent);color:#fff;
     display:flex;align-items:center;justify-content:center;font-size:clamp(20px,1.6vw,28px);font-weight:700}
+  .links .lk.locked{background:#f8f9fb;box-shadow:none;border:2px dashed var(--line);cursor:default}
+  .links .lk.locked b{color:#9ca3af}
+  .links .lk.locked .go{background:#e5e7eb;color:#9ca3af;font-size:clamp(18px,1.4vw,24px)}
+  .links .badge{display:inline-block;font-size:clamp(12px,.95vw,15px);font-weight:700;color:var(--warn);background:#fff7ed;border-radius:999px;padding:3px 12px;margin-top:4px;width:fit-content}
 </style>
 </head>
 <body>
 <main class="wrap">
-  <div class="hero"><div class="course" id="c"></div><h1>설문 참여</h1><p>참여하실 설문을 선택해 주세요.</p></div>
-  <div class="links">
-    <a href="pre.html"><span class="t"><b>신임임원 온보딩 셀프 체크리스트</b><small>신임 임원으로서 첫 90일의 역할 전환과 리더십 준비 상태를 점검하는 체크리스트</small></span><span class="go">→</span></a>
-    <a href="day1.html"><span class="t"><b>1일차 설문</b><small>11/30(월) 모듈 만족도</small></span><span class="go">→</span></a>
-    <a href="day2.html"><span class="t"><b>2일차 설문</b><small>12/1(화) 모듈 · 과정 만족도</small></span><span class="go">→</span></a>
-  </div>
+  <div class="hero"><div class="course" id="c"></div><h1>설문 참여</h1><p>해당하는 설문을 선택해 주세요.</p></div>
+  <div class="links" id="links"></div>
 </main>
 <script src="assets/config.js"></script>
-<script>document.getElementById('c').textContent = SURVEY_CONFIG.COURSE_NAME;</script>
+<script src="assets/gate.js"></script>
+<script>
+  const C = SURVEY_CONFIG;
+  document.getElementById('c').textContent = C.COURSE_NAME;
+  // 표시할 설문 (파일명 · 제목 · 설명)
+  const ITEMS = [
+    { k: 'pre',  href: 'pre.html',  title: '신임임원 온보딩 셀프 체크리스트', sub: '신임 임원으로서 첫 90일의 역할 전환과 리더십 준비 상태를 점검하는 체크리스트' },
+    { k: 'day1', href: 'day1.html', title: '1일차 설문', sub: '11/30(월) 모듈 만족도' },
+    { k: 'day2', href: 'day2.html', title: '2일차 설문', sub: '12/1(화) 모듈 · 과정 만족도' },
+  ];
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function draw() {
+    document.getElementById('links').innerHTML = ITEMS.map(it => {
+      if (SurveyGate.isOpen(it.k))
+        return `<a href="${it.href}"><span class="t"><b>${esc(it.title)}</b><small>${esc(it.sub)}</small></span><span class="go">→</span></a>`;
+      if (C.BEFORE_OPEN === 'hide') return '';
+      return `<div class="lk locked"><span class="t"><b>${esc(it.title)}</b><small>${esc(it.sub)}</small>
+        <span class="badge">${esc(SurveyGate.closedText(it.k))}</span></span><span class="go">🔒</span></div>`;
+    }).join('');
+  }
+  (async () => {
+    draw();                        // 예약 시각 기준으로 먼저 표시
+    await SurveyGate.load(); draw(); // 관리자 설정 반영
+    setInterval(async () => { await SurveyGate.load(); draw(); }, 20000); // 20초마다 자동 갱신
+  })();
+</script>
 </body>
 </html>
