@@ -1,15 +1,143 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>신임 임원(급) 직책 보임자 과정 · Pre-Survey</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>신임임원 온보딩 셀프 체크리스트</title>
+<style>
+:root{--red:#a50034;--red2:#790026;--ink:#23252a;--muted:#666b74;--line:#e4e6ea;--soft:#f6f7f9;--pink:#fff3f6;--white:#fff;--bad:#dc2626}
+*{box-sizing:border-box} body{margin:0;background:#f2f3f5;color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;line-height:1.6}
+.wrap{max-width:980px;margin:28px auto;padding:0 18px 50px} .hero{background:linear-gradient(135deg,var(--red2),var(--red));color:#fff;padding:42px;border-radius:18px 18px 0 0}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;opacity:.86} h1{font-size:32px;line-height:1.3;margin:8px 0 14px} .hero p{margin:0;max-width:760px;color:#fff;opacity:.94}
+.panel{background:#fff;padding:34px 42px;border-radius:0 0 18px 18px;box-shadow:0 10px 30px rgba(0,0,0,.07)}
+.intro{border:1px solid var(--line);border-radius:14px;padding:25px;margin-bottom:28px} .intro h2{font-size:20px;margin:0 0 12px;color:var(--red)} .intro p{margin:6px 0} .intro ul{margin:10px 0 0;padding-left:22px} .notice{margin-top:18px;background:var(--pink);border-left:4px solid var(--red);padding:15px 17px;border-radius:6px}
+.scale-guide{margin:22px 0 6px;padding:18px;background:var(--soft);border-radius:12px} .scale-guide strong{display:block;margin-bottom:8px} .scale-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;font-size:12px} .scale-row span{background:#fff;border:1px solid var(--line);border-radius:7px;padding:8px;text-align:center}
+.info{border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:6px} .info h2{font-size:17px;margin:0 0 14px} .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.info label b{display:block;font-size:14px;margin-bottom:6px} .info input{width:100%;padding:12px 13px;border:1px solid #cfd2d7;border-radius:9px;font:inherit}
+.phase{margin:34px 0 12px;border-top:2px solid var(--red)} .phase div{display:flex;align-items:baseline;gap:14px;padding-top:12px} .phase span{font-size:21px;font-weight:800;color:var(--red);white-space:nowrap;flex:0 0 auto} .phase small{color:var(--muted)}
+.question{border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px;transition:border-color .2s} .qnum{font-weight:800;color:var(--red);font-size:14px} h3{font-size:17px;line-height:1.55;margin:5px 0 18px}
+.options{display:grid;grid-template-columns:repeat(5,1fr);gap:8px} .option{position:relative;cursor:pointer} .option input{position:absolute;opacity:0;pointer-events:none} .option>span{display:block;text-align:center} .option{border:1px solid var(--line);border-radius:10px;padding:12px 7px;min-height:58px;background:#fff;display:flex;align-items:baseline;justify-content:center;gap:3px} .option:hover{border-color:#c78b9e} .option:has(input:checked){border:2px solid var(--red);background:var(--pink);padding:10px 6px} .score{font-size:20px;font-weight:800;color:var(--red)} .point-word{font-size:12px;color:var(--muted)} .option .desc{display:none}
+.picks{display:grid;grid-template-columns:repeat(2,1fr);gap:8px} .pick{position:relative;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;background:#fff} .pick input{position:absolute;opacity:0;pointer-events:none} .pick::before{content:'';flex:0 0 18px;height:18px;border:2px solid #c4c8cf;border-radius:5px} .pick:has(input:checked){border:2px solid var(--red);background:var(--pink);padding:11px 13px} .pick:has(input:checked)::before{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 3px #fff} .pick.off{opacity:.4;cursor:not-allowed} .pick-count{font-size:14px;font-weight:700;color:var(--red);margin:-8px 0 12px}
+.openq{margin-top:34px;background:var(--soft);padding:24px;border-radius:14px} .openq h2{font-size:20px;margin-top:0} .openq label{display:block} textarea{width:100%;min-height:105px;margin:7px 0 18px;padding:13px;border:1px solid #cfd2d7;border-radius:9px;font:inherit;resize:vertical;background:#fff} textarea:focus,input:focus-visible,.info input:focus{outline:3px solid rgba(165,0,52,.2);border-color:var(--red)}
+.err{border-color:var(--bad)!important;box-shadow:0 0 0 3px rgba(220,38,38,.12)} .err-msg{display:none;color:var(--bad);font-size:13px;font-weight:700;margin-top:8px} .question.err .err-msg{display:block}
+button{width:100%;border:0;border-radius:10px;background:var(--red);color:#fff;font-size:17px;font-weight:800;padding:16px;cursor:pointer;margin-top:12px} button:hover{background:var(--red2)} button:disabled{opacity:.6;cursor:wait}
+.alert{display:none;margin-top:12px;padding:13px 15px;border-radius:9px;background:#fef2f2;color:var(--bad);font-size:14px} .alert.show{display:block}
+#complete{display:none;border:2px solid var(--red);border-radius:14px;padding:27px;background:#fff} #complete h2{color:var(--red);margin-top:0} .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0} .summary div{background:var(--soft);border-radius:10px;padding:14px;text-align:center} .summary b{display:block;font-size:22px;color:var(--red)} .foot{font-size:13px;color:var(--muted);margin-top:20px}
+@media(max-width:700px){.picks{grid-template-columns:1fr} .phase div{flex-direction:column;gap:2px} .hero,.panel{padding:25px 19px} h1{font-size:25px} .options,.scale-row,.info-grid{grid-template-columns:1fr} .option{display:flex;align-items:center;gap:10px;min-height:auto;justify-content:flex-start;padding:11px 14px} .option:has(input:checked){padding:10px 13px} .option .desc{display:block;font-size:13px;color:var(--muted);text-align:left;margin-left:6px} .summary{grid-template-columns:1fr}}
+</style>
 </head>
-<body data-survey="pre">
-<main class="wrap" id="app"></main>
+<body><main class="wrap"><header class="hero"><div class="eyebrow">NEW EXECUTIVE ONBOARDING · PRE-CHECK</div><h1>신임임원 온보딩 셀프 체크리스트</h1><p>임원으로서의 첫 90일, 역할 전환과 조직 안착을 위해 지금의 출발점을 스스로 확인합니다.</p></header>
+<div class="panel">
+<section class="intro" id="intro"><h2>신임 임원 선임을 축하드립니다.</h2><p>첫 90일은 실무를 직접 챙기던 역할에서 방향을 세우고 임파워먼트하는 역할로 전환되는 시기입니다. 이 체크리스트는 그 과정에서 무엇을 준비해야 하는지 미리 짚어 보는 나만의 출발점 기록입니다.</p><ul><li><b>전환</b>: 내 역할과 일하는 방식은 어떻게 달라져야 하는가</li><li><b>정렬</b>: 상사·조직·유관 부서와 우선순위 및 역할을 어떻게 맞출 것인가</li><li><b>성과</b>: 첫 90일 안에 어떤 변화와 성과를 만들 것인가</li></ul><div class="notice"><b>아직 실행하지 않았어도 괜찮습니다.</b><br>이번 점검은 평가가 아닙니다. “앞으로 준비해야 할 일이라는 관점에서 지금 어디쯤 있는가”를 솔직하게 확인해 주세요. 결과는 본인의 성장 지원 목적으로만 활용합니다.</div><div class="scale-guide"><strong>응답 기준 · 각 문항에 대해 현재 나의 준비 수준과 가장 가까운 단계를 선택해 주세요.</strong><div class="scale-row" id="scaleRow"></div><p style="margin:10px 2px 0;font-size:13px;color:#666b74" id="scaleEx"></p></div></section>
+<section id="complete" aria-live="polite"><h2>점검을 완료했습니다.</h2><p>점수가 낮은 영역은 부족한 부분이 아니라, 첫 90일 동안 먼저 챙길 과제입니다. 아래 평균은 개인 성찰을 위한 요약이며 심층 진단이나 평가 결과가 아닙니다.</p><div class="summary" id="summary"></div><p>작성한 우선 과제와 필요한 지원을 <b>90일 플랜</b> 및 <b>상사 1on1</b> 준비에 활용해 보세요. D+90 전후에는 같은 문항으로 다시 점검하여 스스로 달라진 점을 확인합니다.</p></section>
+<form id="form" novalidate></form>
+<p class="foot">※ 본 체크리스트는 LG Way 담당 영역을 10개 문항으로 구성하였으며, 개인의 준비도 성찰과 90일 온보딩 지원을 위한 자료입니다.</p></div></main>
 <script src="assets/config.js"></script>
-<script src="assets/survey.js"></script>
-</body>
-</html>
+<script>
+(function () {
+  // config.js 가 없거나 예전 버전이면 안내 표시
+  const C = window.SURVEY_CONFIG, S = C && C.surveys && C.surveys.pre, G = S && S.scaleGuide;
+  if (!G) {
+    document.getElementById('form').innerHTML = '<div class="alert show">설문 문항을 불러오지 못했습니다. <b>assets/config.js</b> 파일이 pre.html 과 같은 위치의 assets 폴더에 있는지, 최신 버전인지 확인해 주세요.</div>';
+    return;
+  }
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const form = document.getElementById('form');
+  const idQs = S.questions.filter(q => q.identity);
+  const likerts = S.questions.filter(q => q.type === 'likert');
+  const picks = S.questions.filter(q => q.type === 'multi');
+  const opens = S.questions.filter(q => q.type === 'textarea');
+
+  // 응답 기준
+  document.getElementById('scaleEx').innerHTML = S.scaleExample || '';
+  document.getElementById('scaleRow').innerHTML = G.map((g, i) => `<span><b>${i + 1}점</b><br>${esc(g)}</span>`).join('');
+
+  // 문항 렌더
+  let html = `<section class="info"><h2>응답자 정보</h2><div class="info-grid">${idQs.map(q =>
+    `<label><b>${esc(q.label)}</b><input type="text" name="${q.id}" autocomplete="off"></label>`).join('')}</div></section>`;
+  let area = null;
+  likerts.forEach((q, i) => {
+    if (q.area !== area) {
+      area = q.area;
+      const sub = (S.phases || {})[area];
+      html += `<section class="phase"><div><span>${esc(area)}</span>${sub ? `<small>${esc(sub)}</small>` : ''}</div></section>`;
+    }
+    html += `<article class="question" data-id="${q.id}"><div class="qnum">Q${i + 1}</div><h3>${esc(q.label)}</h3><div class="options">` +
+      G.map((g, v) => `<label class="option" title="${esc(g)}"><input type="radio" name="${q.id}" value="${v + 1}" aria-label="${v + 1}점: ${esc(g)}"><span class="score">${v + 1}</span><span class="point-word">점</span><span class="desc">${esc(g)}</span></label>`).join('') +
+      `</div><div class="err-msg">응답을 선택해 주세요.</div></article>`;
+  });
+  picks.forEach(q => {
+    html += `<section class="phase"><div><span>${esc(q.area || '선택')}</span></div></section>
+      <article class="question" data-id="${q.id}"><div class="qnum">추가</div><h3>${esc(q.label)}</h3>
+      ${q.max ? `<div class="pick-count" data-for="${q.id}">0 / ${q.max} 선택</div>` : ''}
+      <div class="picks" data-max="${q.max || ''}">${q.options.map(o => `<label class="pick"><input type="checkbox" name="${q.id}" value="${esc(o)}">${esc(o)}</label>`).join('')}</div>
+      <div class="err-msg">${q.min ? q.min + '개를 선택해 주세요.' : '응답을 선택해 주세요.'}</div></article>`;
+  });
+  if (opens.length) html += `<section class="openq"><h2>마지막으로 ${opens.length === 2 ? '두' : opens.length} 가지를 적어 주세요.</h2>` +
+    opens.map((q, i) => `<label><b>${i + 1}. ${esc(q.label)}</b><textarea name="${q.id}" placeholder="${esc(q.placeholder || '')}"></textarea></label>`).join('') + '</section>';
+  html += `<button type="submit">점검 완료</button><div class="alert" id="alert"></div>`;
+  form.innerHTML = html;
+
+  form.addEventListener('change', e => {
+    e.target.closest('.question')?.classList.remove('err');
+    const box = e.target.closest('.picks[data-max]');
+    if (box && box.dataset.max) {
+      const max = +box.dataset.max, ins = [...box.querySelectorAll('input')], n = ins.filter(i => i.checked).length;
+      ins.forEach(i => { i.disabled = !i.checked && n >= max; i.parentElement.classList.toggle('off', i.disabled); });
+      form.querySelector(`.pick-count[data-for="${e.target.name}"]`).textContent = `${n} / ${max} 선택`;
+    }
+  });
+  form.addEventListener('input', e => e.target.classList.remove('err'));
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const alertBox = document.getElementById('alert'); alertBox.classList.remove('show');
+    const answers = [], bad = [];
+    S.questions.forEach(q => {
+      let v = '';
+      if (q.type === 'likert') {
+        const c = form.querySelector(`input[name="${q.id}"]:checked`);
+        v = c ? Number(c.value) : '';
+        form.querySelector(`.question[data-id="${q.id}"]`).classList.toggle('err', q.required && v === '');
+        if (q.required && v === '') bad.push(form.querySelector(`.question[data-id="${q.id}"]`));
+      } else if (q.type === 'multi') {
+        const sel = [...form.querySelectorAll(`input[name="${q.id}"]:checked`)].map(i => i.value);
+        const box = form.querySelector(`.question[data-id="${q.id}"]`), miss = q.required && sel.length < (q.min || 1);
+        box.classList.toggle('err', miss); if (miss) bad.push(box);
+        if (q.split) { for (let k = 0; k < (q.max || sel.length); k++) answers.push({ id: q.id + '_' + (k + 1), label: `${q.split} ${k + 1}`, value: sel[k] || '' }); return; }
+        v = sel.join(', ');
+      } else {
+        const el = form.elements[q.id]; v = el.value.trim();
+        el.classList.toggle('err', q.required && !v);
+        if (q.required && !v) bad.push(el);
+      }
+      answers.push({ id: q.id, label: q.label, value: v });
+    });
+    if (bad.length) {
+      bad[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      alertBox.textContent = `응답하지 않은 항목이 ${bad.length}개 있습니다. 빨간색으로 표시된 항목을 확인해 주세요.`;
+      alertBox.classList.add('show');
+      return;
+    }
+    const btn = form.querySelector('button'); btn.disabled = true; btn.textContent = '제출 중...';
+    try {
+      const res = await fetch(C.GAS_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ survey: 'pre', answers }) });
+      const j = await res.json();
+      if (!j.ok) throw new Error(j.error || '저장 실패');
+    } catch (err) {
+      alertBox.textContent = '제출에 실패했습니다. 잠시 후 다시 시도해 주세요. (' + err.message + ')';
+      alertBox.classList.add('show'); btn.disabled = false; btn.textContent = '점검 완료';
+      return;
+    }
+    // 영역별 평균
+    const areas = [...new Set(likerts.map(q => q.area))];
+    document.getElementById('summary').innerHTML = areas.map(a => {
+      const vs = likerts.filter(q => q.area === a).map(q => answers.find(x => x.id === q.id).value);
+      return `<div>${esc(a)} 평균<b>${(vs.reduce((s, n) => s + n, 0) / vs.length).toFixed(1)}점</b></div>`;
+    }).join('');
+    form.style.display = 'none'; document.getElementById('intro').style.display = 'none';
+    const c = document.getElementById('complete'); c.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script></body></html>
