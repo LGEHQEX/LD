@@ -50,12 +50,21 @@
     document.querySelector(`.pick-count[data-for="${id}"]`).textContent = `${n} / ${max} 선택`;
   }
 
+  // 모듈 구분 헤더 (모듈 만족도 문항 앞에 표시)
+  let modNo = 0;
+  function modHead(q) {
+    if (!q.module) return '';
+    modNo++;
+    return `<div class="mod-head"><span class="mod-no">MODULE ${String(modNo).padStart(2, '0')}</span>
+      <div class="mod-t"><b>${esc(q.module.name)}</b><small>${esc(q.module.who)}</small></div></div>`;
+  }
+
   function render() {
     app.innerHTML = `
       <div class="hero"><div class="course">${esc(C.COURSE_NAME)}</div><h1>${esc(S.title)}</h1><p>${esc(S.desc || '')}</p></div>
       <form id="f" novalidate>
-        ${S.questions.map((q, i) => q.type === 'section' ? `<h2 class="sec">${esc(q.label)}</h2>` : `
-          <div class="q" data-id="${q.id}">
+        ${S.questions.map((q, i) => q.type === 'section' ? `<h2 class="sec">${esc(q.label)}</h2>` : modHead(q) + `
+          <div class="q${q.module || /_memo$/.test(q.id) ? ' in-mod' : ''}" data-id="${q.id}">
             ${q.area ? `<div class="chip">${esc(q.area)}</div>` : ''}
             <div class="q-title">${qno(q, i) ? `<span class="no">${qno(q, i)}</span>` : ''}${esc(q.label)}${q.required ? '<span class="req">*</span>' : ''}</div>
             ${field(q)}
@@ -83,7 +92,11 @@
       } else v = f.elements[n].value.trim();
       if (q.required && (v === '' || v == null)) missing.push(q.id);
       else if (q.min && v.split(', ').filter(Boolean).length < q.min) missing.push(q.id);
-      answers.push({ id: q.id, label: q.label, value: v });
+      if (q.split && q.type === 'multi') {
+        // 선택 항목을 '라벨 1', '라벨 2', ... 열로 나눠 기록
+        const picks = v ? v.split(', ') : [];
+        for (let k = 0; k < (q.max || picks.length); k++) answers.push({ id: q.id + '_' + (k + 1), label: `${q.split} ${k + 1}`, value: picks[k] || '' });
+      } else answers.push({ id: q.id, label: q.label, value: v });
     });
     return { answers, missing };
   }
