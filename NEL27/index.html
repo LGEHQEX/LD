@@ -75,7 +75,9 @@ li .w{color:var(--mute);font-size:clamp(11px,1.5vw,14.5px);text-align:right;whit
 .loc-col dt{background:var(--soft);color:var(--mute);font-weight:700;font-size:clamp(12px,1.4vw,14px);padding:12px 14px;display:flex;align-items:center}
 .loc-col dd{margin:0;padding:12px 14px;font-size:clamp(12.5px,1.5vw,15px);line-height:1.6}
 .warn{color:var(--acc);font-weight:700}
-.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:32px 0 20px}
+.notice{text-align:center;margin:36px 0 0;font-weight:700;line-height:1.6;font-size:clamp(11px,1.35vw,14px);white-space:nowrap}
+.notice .hl{color:var(--acc)}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:16px 0 20px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;border:2px solid var(--acc);color:var(--acc);background:#fff;font-weight:700;font-size:clamp(14px,1.7vw,16px);text-decoration:none;cursor:pointer;transition:transform .15s,box-shadow .15s}
 .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(214,58,88,.22)}
 .btn.primary{background:var(--acc);color:#fff;box-shadow:0 4px 12px rgba(214,58,88,.28)}
@@ -97,7 +99,7 @@ li .w{color:var(--mute);font-size:clamp(11px,1.5vw,14.5px);text-align:right;whit
 .d-tools button:hover{background:var(--chip-l);color:var(--acc)}
 .drawer iframe{flex:1;width:100%;border:0;background:#fff}
 .d-foot{margin:0;padding:8px 16px;font-size:12px;color:var(--mute);background:var(--soft);text-align:center}
-@media(max-width:700px){.loc-grid{grid-template-columns:1fr;gap:28px}.drawer{width:100vw}.sec{margin-top:44px}.btn{width:100%;justify-content:center}}
+@media(max-width:700px){.notice{white-space:normal;font-size:12.5px}.loc-grid{grid-template-columns:1fr;gap:28px}.drawer{width:100vw}.sec{margin-top:44px}.btn{width:100%;justify-content:center}}
 @media print{.overlay,.drawer{display:none}}
 
 @media print{body{background:#fff;padding:0}.page{box-shadow:none;max-width:none;border-width:4px}@page{size:A4;margin:0}}
@@ -132,11 +134,12 @@ li .w{color:var(--mute);font-size:clamp(11px,1.5vw,14.5px);text-align:right;whit
   
 </section>
   </section>
-  <section class="sec loc"><div class="sec-head"><span class="sec-pill">LOCATION</span><h2 class="sec-title">찾아오는 길</h2><p class="sec-sub">LG전자 평택 러닝센터 (경기도 평택시 진위면 엘지로 222)</p></div>
+  <section class="sec loc"><div class="sec-head"><span class="sec-pill">LOCATION</span><h2 class="sec-title">오시는 길</h2><p class="sec-sub">LG전자 평택 러닝센터 (경기도 평택시 진위면 엘지로 222)</p></div>
   <div class="loc-grid">
     <div class="loc-col"><h3>강의 장소</h3><dl><div class="r"><dt>주소</dt><dd>경기도 평택시 진위면 엘지로 222</dd></div><div class="r"><dt>강의실</dt><dd>러닝센터 나눔관(대강당)<br>러닝센터 채움관(분반 강의장)</dd></div><div class="r"><dt>주차</dt><dd>외부 서문 주차장 이용 (내부 주차 불가)</dd></div><div class="r"><dt>식사</dt><dd>HOUSE 1958</dd></div></dl></div>
     <div class="loc-col"><h3>숙소 안내</h3><dl><div class="r"><dt>체크인</dt><dd>입실 당일 오후 1~2시경 숙소 정보 문자 발송</dd></div><div class="r"><dt>체크아웃</dt><dd>교육 종료일 오전 8시까지 퇴실 완료<br><strong class="warn">※ 퇴실 시 개인 짐을 빠짐없이 챙겨 주시기 바랍니다.</strong></dd></div><div class="r"><dt>배정</dt><dd>1인 1실 원칙</dd></div><div class="r"><dt>구비물품</dt><dd>수건 · 드라이어 · 샴푸 · 바디워시 · 세탁기(공용)</dd></div><div class="r"><dt>문의(24시)</dt><dd>숙소: 031-8074-5500 · 응급: 031-610-6119</dd></div></dl></div>
   </div>
+  <p class="notice"><span class="hl">과정 참석 관련 사전 조사에</span> 참여해 주시기 바랍니다. (참석 여부, 차량 등록, 석식참여 등) — <span class="hl">설문기한: 11/25(수)</span></p>
   <div class="actions">
     <a class="btn primary" href="https://moaform.com/q/GdDBwv" target="_blank" rel="noopener" data-drawer data-title="사전설문 참여하기">사전설문 참여하기 <span aria-hidden="true">→</span></a>
     <a class="btn" href="https://lgehqex.github.io/learningcenter/" target="_blank" rel="noopener" data-drawer data-title="러닝센터 생활안내">러닝센터 생활안내 보기 <span aria-hidden="true">→</span></a>
