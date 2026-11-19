@@ -19,13 +19,13 @@ function MOD(id, name, who) {
 
 window.SURVEY_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbw4yBPRFfuNWkkgZQIw39w6fRaPBjeEDjj2SgGgKQj0kYaFIx2z7rbE06gUZ7ulQio/exec',
-  COURSE_NAME: '신임 임원(급) 직책 보임자 과정',
+  COURSE_NAME: '신임 임원급 직책 보임자 과정',
   REFRESH_SEC: 30, // 대시보드 자동 새로고침 주기(초)
-  SHEET_URL: 'https://docs.google.com/spreadsheets/d/1nufFI1ioJVJ-nDJzEZnhLVNkThiP0rUOi9Wh9DTU7BY/edit?usp=sharing', // (선택) 구글시트 주소를 넣으면 대시보드에 '구글시트 열기' 버튼이 생김
+  SHEET_URL: '', // (선택) 구글시트 주소를 넣으면 대시보드에 '구글시트 열기' 버튼이 생김
 
   // 5점 척도 라벨 세트 (문항에서 scale: '이름' 으로 지정, 미지정 시 agree)
   SCALES: {
-    agree: ['매우 아니다', '아니다', '보통', '그렇다', '매우 그렇다'],
+    agree: ['전혀 그렇지 않다', '그렇지 않다', '보통', '그렇다', '매우 그렇다'],
     confidence: ['전혀 확신 없음', '확신 없음', '보통', '확신 있음', '매우 확신'],
   },
 
@@ -33,31 +33,40 @@ window.SURVEY_CONFIG = {
     pre: {
       sheet: '사전설문', // 엑셀 다운로드 시 탭 이름 (GAS 의 시트 이름과 동일하게)
       title: '사전 설문',
-      desc: '각 문항에 대해 현재 나의 확신 정도를 선택해 주세요. (약 3분)',
-      // area: 요구 영역(참가자에게 표시) / lgway: 연계 LG Way 항목(대시보드에만 표시)
+      // pre.html 은 별도 디자인(셀프 체크리스트)으로 표시됩니다. 문항은 여기서 수정하세요.
+      // area: 요구 영역(소제목·제출 후 영역별 평균) / lgway: 연계 LG Way 항목(대시보드에만 표시)
+      // 응답 기준 (1~5점 설명) — 체크리스트 상단 '응답 기준' 박스와 모바일 보기 설명에 사용
+      scaleGuide: [
+        '전혀 확신이 없다',
+        '확신이 부족하다',
+        '보통이다',
+        '어느 정도 확신한다',
+        '매우 확신한다',
+      ],
+      scaleExample: '예: 방법은 대략 알지만 직접 해 볼 자신은 아직 부족하다면 <b>2점</b>, 바로 실행할 수 있을 만큼 기준이 서 있다면 <b>4점</b> 이상을 선택합니다.',
       questions: [
         { id: 'name', type: 'text', label: '이름', required: true, identity: true },
         { id: 'empno', type: 'text', label: '사번', required: true, identity: true },
-        { id: 'q1', type: 'likert', scale: 'agree', area: '역할 전환', lgway: '저부가가치 업무 효율화, 자율적 업무 수행',
-          label: '직접 챙길 일과 구성원에게 맡길 일을 구분하는 나만의 기준이 있다', required: true },
-        { id: 'q2', type: 'likert', scale: 'agree', area: '역할 전환', lgway: '목표 달성 역할 분담',
-          label: '산하 리더들의 역할을 중복과 공백 없이 나누는 방법을 알고 있다', required: true },
-        { id: 'q3', type: 'likert', scale: 'agree', area: '시야 확장', lgway: '외부지향',
-          label: '외부 시장 변화를 파악할 나만의 정보원과 방법이 있다', required: true },
-        { id: 'q4', type: 'likert', scale: 'agree', area: '시야 확장', lgway: '리스크 관리',
-          label: '우리 조직의 주요 리스크를 파악하고 설명할 수 있다', required: true },
-        { id: 'q5', type: 'likert', scale: 'agree', area: '방향 정렬', lgway: '전략 연계 과제 설정',
-          label: '상사가 내게 기대하는 최우선 과제를 한 문장으로 말할 수 있다', required: true },
-        { id: 'q6', type: 'likert', scale: 'agree', area: '판단 기준', lgway: '의사결정 과정',
-          label: '중요한 결정의 배경을 구성원에게 납득되도록 설명하는 방법을 알고 있다', required: true },
-        { id: 'q7', type: 'likert', scale: 'agree', area: '성과 실행', lgway: '부서간 협업',
-          label: '협업이 필요한 유관 부서와 관계를 만들 방법을 구상하고 있다', required: true },
-        { id: 'q8', type: 'likert', scale: 'agree', area: '성과 실행', lgway: '의사결정 속도, 집요한 실행',
-          label: '90일 안에 구성원의 신뢰를 얻을 첫 성과 과제를 정할 수 있다', required: true },
-        { id: 'q9', type: 'likert', scale: 'agree', area: '성과 실행', lgway: '혁신 활동, 도전 장려',
-          label: '구성원이 새로운 시도를 하도록 이끄는 방법을 알고 있다', required: true },
-        { id: 'q10', type: 'likert', scale: 'agree', area: '성과 실행', lgway: 'Speak up',
-          label: '다른 의견을 편하게 말할 수 있는 조직을 만드는 방법을 알고 있다', required: true },
+        { id: 'q1', type: 'likert', scale: 'confidence', area: '역할 전환', lgway: '저부가가치 업무 효율화, 자율적 업무 수행', required: true,
+          label: '직접 챙길 일과 구성원에게 맡길 일을 구분하는 나만의 기준이 있다' },
+        { id: 'q2', type: 'likert', scale: 'confidence', area: '역할 전환', lgway: '목표 달성 역할 분담', required: true,
+          label: '산하 리더들의 역할을 중복과 공백 없이 나누는 방법을 알고 있다' },
+        { id: 'q3', type: 'likert', scale: 'confidence', area: '시야 확장', lgway: '외부지향', required: true,
+          label: '외부 시장 변화를 파악할 나만의 정보원과 방법이 있다' },
+        { id: 'q4', type: 'likert', scale: 'confidence', area: '시야 확장', lgway: '리스크 관리', required: true,
+          label: '우리 조직의 주요 리스크를 파악하고 설명할 수 있다' },
+        { id: 'q5', type: 'likert', scale: 'confidence', area: '방향 정렬', lgway: '전략 연계 과제 설정', required: true,
+          label: '상사가 내게 기대하는 최우선 과제를 한 문장으로 말할 수 있다' },
+        { id: 'q6', type: 'likert', scale: 'confidence', area: '판단 기준', lgway: '의사결정 과정', required: true,
+          label: '중요한 결정의 배경을 구성원에게 납득되도록 설명하는 방법을 알고 있다' },
+        { id: 'q7', type: 'likert', scale: 'confidence', area: '성과 실행', lgway: '부서간 협업', required: true,
+          label: '협업이 필요한 유관 부서와 관계를 만들 방법을 구상하고 있다' },
+        { id: 'q8', type: 'likert', scale: 'confidence', area: '성과 실행', lgway: '의사결정 속도, 집요한 실행', required: true,
+          label: '90일 안에 구성원의 신뢰를 얻을 첫 성과 과제를 정할 수 있다' },
+        { id: 'q9', type: 'likert', scale: 'confidence', area: '성과 실행', lgway: '혁신 활동, 도전 장려', required: true,
+          label: '구성원이 새로운 시도를 하도록 이끄는 방법을 알고 있다' },
+        { id: 'q10', type: 'likert', scale: 'confidence', area: '성과 실행', lgway: 'Speak up', required: true,
+          label: '다른 의견을 편하게 말할 수 있는 조직을 만드는 방법을 알고 있다' },
         { id: 'priority', type: 'multi', min: 3, max: 3, area: '우선순위 선택', required: true,
           split: '우선순위 선택', // 시트에 '우선순위 선택 1/2/3' 열로 나눠 기록
           label: '이번 과정에서 가장 먼저 채우고 싶은 영역 3개를 골라 주세요',
@@ -66,6 +75,10 @@ window.SURVEY_CONFIG = {
             'Q5 상사 기대 과제 정렬', 'Q6 결정 배경 설명', 'Q7 유관 부서 협업', 'Q8 90일 첫 성과 과제',
             'Q9 구성원 도전 이끌기', 'Q10 Speak up 조직 만들기',
           ] },
+        { id: 'plan90', type: 'textarea', required: true, placeholder: '핵심 과제와 이유를 간단히 적어 주세요.',
+          label: '첫 90일 동안 가장 먼저 준비할 1~2가지와 그 이유는 무엇입니까?' },
+        { id: 'support', type: 'textarea', required: true, placeholder: '필요한 지원을 구체적으로 적어 주세요.',
+          label: '상사나 HR에게 가장 받고 싶은 지원은 무엇입니까?' },
       ],
     },
 
