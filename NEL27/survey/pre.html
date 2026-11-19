@@ -24,11 +24,56 @@ button{width:100%;border:0;border-radius:10px;background:var(--red);color:#fff;f
 .alert{display:none;margin-top:12px;padding:13px 15px;border-radius:9px;background:#fef2f2;color:var(--bad);font-size:14px} .alert.show{display:block}
 #complete{display:none;border:2px solid var(--red);border-radius:14px;padding:27px;background:#fff} #complete h2{color:var(--red);margin-top:0} .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0} .summary div{background:var(--soft);border-radius:10px;padding:14px;text-align:center} .summary b{display:block;font-size:22px;color:var(--red)} .foot{font-size:13px;color:var(--muted);margin-top:20px}
 @media(max-width:700px){.picks{grid-template-columns:1fr} .phase div{flex-direction:column;gap:2px} .hero,.panel{padding:25px 19px} h1{font-size:25px} .options,.scale-row,.info-grid{grid-template-columns:1fr} .option{display:flex;align-items:center;gap:10px;min-height:auto;justify-content:flex-start;padding:11px 14px} .option:has(input:checked){padding:10px 13px} .option .desc{display:block;font-size:13px;color:var(--muted);text-align:left;margin-left:6px} .summary{grid-template-columns:1fr}}
+
+/* ───── PC·노트북 (1000px 이상: 화면 폭에 비례해 확대) ───── */
+@media(min-width:1000px){
+  body{font-size:clamp(16px,1.1vw,19px)}
+  .wrap{max-width:min(1240px,86vw);margin:clamp(28px,3vw,56px) auto}
+  .hero{padding:clamp(42px,3.6vw,64px) clamp(42px,4vw,72px);border-radius:22px 22px 0 0}
+  .eyebrow{font-size:clamp(13px,.95vw,16px)} h1{font-size:clamp(32px,2.7vw,46px)} .hero p{font-size:clamp(16px,1.25vw,21px);max-width:none}
+  .panel{padding:clamp(34px,3vw,56px) clamp(42px,4vw,72px);border-radius:0 0 22px 22px}
+  .intro{padding:clamp(25px,2.2vw,40px);border-radius:18px} .intro h2{font-size:clamp(20px,1.6vw,27px)} .intro p,.intro li{font-size:1em}
+  .notice{padding:clamp(15px,1.3vw,22px) clamp(17px,1.5vw,26px)}
+  .scale-guide{padding:clamp(18px,1.6vw,28px)} .scale-row{font-size:clamp(12px,.95vw,15.5px);gap:10px} .scale-row span{padding:clamp(8px,.9vw,14px)}
+  .info{padding:clamp(22px,2vw,34px)} .info h2{font-size:clamp(17px,1.35vw,22px)} .info label b{font-size:clamp(14px,1.05vw,17px)} .info input{padding:clamp(12px,1vw,16px);font-size:1em}
+  .phase{margin-top:clamp(34px,3vw,52px)} .phase span{font-size:clamp(21px,1.8vw,30px)} .phase small{font-size:clamp(14px,1.05vw,17px)}
+  .question{padding:clamp(22px,2vw,36px) clamp(22px,2.2vw,40px);border-radius:18px;margin-bottom:20px}
+  .qnum{font-size:clamp(14px,1.05vw,17px)} h3{font-size:clamp(17px,1.45vw,24px);margin-bottom:clamp(18px,1.5vw,26px)}
+  .options{gap:clamp(8px,.9vw,14px)} .option{min-height:clamp(58px,5vw,84px);align-items:center;border-radius:12px} .score{font-size:clamp(20px,1.9vw,32px)} .point-word{font-size:clamp(12px,.95vw,15px)}
+  .picks{gap:clamp(8px,.9vw,14px)} .pick{padding:clamp(12px,1.1vw,18px) clamp(14px,1.3vw,20px);font-size:1em} .pick-count{font-size:clamp(14px,1.05vw,17px)}
+  .openq{padding:clamp(24px,2.2vw,40px);border-radius:18px} .openq h2{font-size:clamp(20px,1.6vw,27px)} .openq b{font-size:clamp(16px,1.2vw,20px)}
+  textarea{min-height:clamp(105px,9vw,160px);padding:clamp(13px,1.1vw,18px);font-size:1em}
+  button{font-size:clamp(17px,1.4vw,23px);padding:clamp(16px,1.4vw,24px);border-radius:14px}
+  #complete{padding:clamp(27px,2.4vw,44px)} #complete h2{font-size:clamp(22px,1.9vw,32px)} .summary b{font-size:clamp(22px,2vw,34px)} .summary div{padding:clamp(14px,1.3vw,22px)}
+  .foot{font-size:clamp(13px,.95vw,15px)}
+}
+
+/* ───── 모바일 다듬기 ───── */
+@media(max-width:700px){
+  body{word-break:keep-all;overflow-wrap:anywhere}
+  .wrap{margin:0 auto;padding:0 0 40px}
+  .hero{border-radius:0;padding:30px 20px 26px} .eyebrow{font-size:11px} h1{font-size:24px;margin:6px 0 10px} .hero p{font-size:14.5px}
+  .panel{border-radius:0;padding:20px 14px;box-shadow:none}
+  .intro{padding:18px 16px;margin-bottom:20px} .intro h2{font-size:18px} .intro p,.intro li{font-size:14.5px} .intro ul{padding-left:18px}
+  .notice{padding:13px 14px;font-size:14px}
+  .scale-guide{padding:14px 12px} .scale-guide strong{font-size:14px}
+  .scale-row{gap:5px} .scale-row span{display:flex;gap:10px;align-items:center;text-align:left;padding:8px 12px;font-size:13px} .scale-row span br{display:none} .scale-row span b{flex:0 0 32px;color:var(--red)}
+  .info{padding:18px 16px} .info h2{font-size:16px}
+  .info input{font-size:16px} textarea{font-size:16px}
+  .phase{margin:28px 0 10px} .phase span{font-size:19px} .phase small{font-size:13px;line-height:1.45}
+  .question{padding:18px 14px;margin-bottom:12px} h3{font-size:16px;margin:4px 0 14px;word-break:keep-all}
+  .options{gap:6px} .score{font-size:18px;min-width:16px}
+  .pick{padding:12px 13px;font-size:15px}
+  .openq{padding:18px 14px;margin-top:26px} .openq h2{font-size:18px} .openq b{font-size:15px;word-break:keep-all}
+  button{font-size:17px;padding:17px}
+  #complete{padding:22px 16px} .summary{grid-template-columns:1fr 1fr} .summary b{font-size:20px}
+  .foot{padding:0 4px}
+}
 </style>
 </head>
 <body><main class="wrap"><header class="hero"><div class="eyebrow">NEW EXECUTIVE ONBOARDING · PRE-CHECK</div><h1>신임임원 온보딩 셀프 체크리스트</h1><p>임원으로서의 첫 90일, 역할 전환과 조직 안착을 위해 지금의 출발점을 스스로 확인합니다.</p></header>
 <div class="panel">
-<section class="intro" id="intro"><h2>신임 임원 선임을 축하드립니다.</h2><p>첫 90일은 실무를 직접 챙기던 역할에서 방향을 세우고 임파워먼트하는 역할로 전환되는 시기입니다. 이 체크리스트는 그 과정에서 무엇을 준비해야 하는지 미리 짚어 보는 나만의 출발점 기록입니다.</p><ul><li><b>전환</b>: 내 역할과 일하는 방식은 어떻게 달라져야 하는가</li><li><b>정렬</b>: 상사·조직·유관 부서와 우선순위 및 역할을 어떻게 맞출 것인가</li><li><b>성과</b>: 첫 90일 안에 어떤 변화와 성과를 만들 것인가</li></ul><div class="notice"><b>아직 실행하지 않았어도 괜찮습니다.</b><br>이번 점검은 평가가 아닙니다. “앞으로 준비해야 할 일이라는 관점에서 지금 어디쯤 있는가”를 솔직하게 확인해 주세요. 결과는 본인의 성장 지원 목적으로만 활용합니다.</div><div class="scale-guide"><strong>응답 기준 · 각 문항에 대해 현재 나의 준비 수준과 가장 가까운 단계를 선택해 주세요.</strong><div class="scale-row" id="scaleRow"></div><p style="margin:10px 2px 0;font-size:13px;color:#666b74" id="scaleEx"></p></div></section>
+<section class="intro" id="intro"><h2>신임 임원 선임을 축하드립니다.</h2><p>첫 90일은 실무를 직접 챙기던 역할에서 방향을 세우고 임파워먼트하는 역할로 전환되는 시기입니다. 이 체크리스트는 그 과정에서 무엇을 준비해야 하는지 미리 짚어 보는 나만의 출발점 기록입니다.</p><ul><li><b>전환</b>: 내 역할과 일하는 방식은 어떻게 달라져야 하는가</li><li><b>정렬</b>: 상사·조직·유관 부서와 우선순위 및 역할을 어떻게 맞출 것인가</li><li><b>성과</b>: 첫 90일 안에 어떤 변화와 성과를 만들 것인가</li></ul><div class="notice"><b>아직 실행하지 않았어도 괜찮습니다.</b><br>이번 점검은 평가가 아닙니다. “앞으로 준비해야 할 일이라는 관점에서 지금 어디쯤 있는가”를 솔직하게 확인해 주세요. 결과는 본인의 성장 지원 목적으로만 활용합니다.</div><div class="scale-guide"><strong>응답 기준 · 각 문항에 대해 현재 나의 확신 정도와 가장 가까운 단계를 선택해 주세요.</strong><div class="scale-row" id="scaleRow"></div><p style="margin:10px 2px 0;font-size:13px;color:#666b74" id="scaleEx"></p></div></section>
 <section id="complete" aria-live="polite"><h2>점검을 완료했습니다.</h2><p>점수가 낮은 영역은 부족한 부분이 아니라, 첫 90일 동안 먼저 챙길 과제입니다. 아래 평균은 개인 성찰을 위한 요약이며 심층 진단이나 평가 결과가 아닙니다.</p><div class="summary" id="summary"></div><p>작성한 우선 과제와 필요한 지원을 <b>90일 플랜</b> 및 <b>상사 1on1</b> 준비에 활용해 보세요. D+90 전후에는 같은 문항으로 다시 점검하여 스스로 달라진 점을 확인합니다.</p></section>
 <form id="form" novalidate></form>
 <p class="foot">※ 본 체크리스트는 LG Way 담당 영역을 10개 문항으로 구성하였으며, 개인의 준비도 성찰과 90일 온보딩 지원을 위한 자료입니다.</p></div></main>
