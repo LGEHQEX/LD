@@ -129,5 +129,21 @@
     }
   }
 
-  render();
+  // 공개 여부 확인 (관리자 설정 + 예약 시각). ?preview 로 열면 운영자 미리보기
+  function locked() {
+    app.innerHTML = `<div class="hero"><div class="course">${esc(C.COURSE_NAME)}</div><h1>${esc(S.title)}</h1></div>
+      <div class="done"><div class="check">🔒</div><h2>아직 응답할 수 없는 설문입니다</h2><p>${esc(SurveyGate.closedText(KEY))}<br>열리면 이 화면이 자동으로 바뀝니다.</p></div>`;
+  }
+  if (new URLSearchParams(location.search).has('preview') || !window.SurveyGate) render();
+  else {
+    const first = SurveyGate.isOpen(KEY);
+    if (first) render(); else locked();
+    SurveyGate.load().then(() => {
+      const now = SurveyGate.isOpen(KEY);
+      if (now !== first) now ? render() : locked();
+      if (!now) {
+        const t = setInterval(async () => { await SurveyGate.load(); if (SurveyGate.isOpen(KEY)) { clearInterval(t); render(); window.scrollTo(0, 0); } }, 20000);
+      }
+    });
+  }
 })();
