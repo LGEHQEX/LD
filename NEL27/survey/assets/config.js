@@ -46,7 +46,7 @@ window.SURVEY_CONFIG = {
       scaleExample: '예: 방법은 대략 알지만 직접 해 볼 자신은 아직 부족하다면 <b>2점</b>, 바로 실행할 수 있을 만큼 기준이 서 있다면 <b>4점</b> 이상을 선택합니다.',
       questions: [
         { id: 'name', type: 'text', label: '이름', required: true, identity: true },
-        { id: 'empno', type: 'text', label: '사번', required: true, identity: true },
+        { id: 'empno', type: 'text', label: '사번', required: true, identity: true, private: true }, // private: 대시보드 명단에 표시 안 함 (중복 확인에는 사용)
         { id: 'q1', type: 'likert', scale: 'confidence', area: '역할 전환', lgway: '저부가가치 업무 효율화, 자율적 업무 수행', required: true,
           label: '직접 챙길 일과 구성원에게 맡길 일을 구분하는 나만의 기준이 있다' },
         { id: 'q2', type: 'likert', scale: 'confidence', area: '역할 전환', lgway: '목표 달성 역할 분담', required: true,
