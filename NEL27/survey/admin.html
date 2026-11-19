@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>설문 공개 관리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .adm{max-width:980px;margin:0 auto;padding:32px 20px 80px;font-size:clamp(15px,1vw,17px)}
+  .adm h1{margin:2px 0 6px;font-size:clamp(26px,2vw,34px)}
+  .adm .sub{color:var(--sub);margin:0 0 22px}
+  .login{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .login input{flex:1;min-width:200px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:16px}
+  .sv{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+  .sv h3{margin:0 0 4px;font-size:1.25em}
+  .sv .meta{color:var(--sub);font-size:.92em}
+  .state{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:.95em;padding:5px 12px;border-radius:999px;margin-top:8px}
+  .state.on{background:#dcfce7;color:#15803d}.state.off{background:#f3f4f6;color:#6b7280}
+  .seg{display:flex;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+  .seg button{border:0;background:#fff;padding:12px 18px;font-weight:700;font-size:.95em;cursor:pointer;color:var(--sub);white-space:nowrap}
+  .seg button+button{border-left:1.5px solid var(--line)}
+  .seg button.on{background:var(--ink);color:#fff}
+  .seg button.on.open{background:#15803d}.seg button.on.closed{background:var(--bad)}
+  .seg button:disabled{cursor:wait;opacity:.6}
+  .msg{margin-top:14px;font-size:.95em;color:var(--bad)}
+  .help{color:var(--sub);font-size:.9em;line-height:1.7}
+  @media(max-width:700px){.sv{grid-template-columns:1fr}.seg button{flex:1;padding:12px 6px}}
+</style>
+</head>
+<body>
+<div class="adm">
+  <div class="course" id="course" style="color:var(--sub);font-weight:600"></div>
+  <h1>설문 공개 관리</h1>
+  <p class="sub">설문 링크 페이지와 각 설문의 열림/닫힘을 관리합니다. 변경 사항은 참가자 화면에 20초 안에 반영됩니다.</p>
+
+  <div class="card" id="loginCard">
+    <h3 style="margin-bottom:12px">관리자 비밀번호</h3>
+    <div class="login"><input type="password" id="pw" placeholder="Code.gs 의 ADMIN_KEY"><button class="btn primary" id="loginBtn">확인</button></div>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+
+  <div id="list" hidden></div>
+
+  <div class="card help" id="help" hidden>
+    <b>버튼 설명</b><br>
+    · <b>예약대로</b>: config.js 에 적힌 공개 시각이 되면 자동으로 열림 (시각이 없으면 항상 열림)<br>
+    · <b>지금 열기</b>: 시각과 상관없이 바로 열림 &nbsp;·&nbsp; <b>닫기</b>: 시각과 상관없이 닫힘<br>
+    · 닫혀 있어도 운영자는 주소 뒤에 <code>?preview</code> 를 붙여 미리 볼 수 있습니다. (예: day1.html?preview)
+  </div>
+</div>
+<script src="assets/config.js"></script>
+<script src="assets/gate.js"></script>
+<script>
+(function () {
+  const C = SURVEY_CONFIG, $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  $('course').textContent = C.COURSE_NAME;
+  let KEY = '';
+  try { KEY = sessionStorage.getItem('adminKey') || ''; } catch (e) {}
+
+  async function post(body) {
+    const r = await fetch(C.GAS_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'setStatus', key: KEY, ...body }) });
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || '실패');
+    return j.status;
+  }
+
+  async function login() {
+    KEY = $('pw').value.trim() || KEY;
+    $('loginMsg').textContent = '';
+    try {
+      await post({}); // 비밀번호 확인만
+      try { sessionStorage.setItem('adminKey', KEY); } catch (e) {}
+      $('loginCard').hidden = true; $('list').hidden = false; $('help').hidden = false;
+      await SurveyGate.load(); draw();
+    } catch (e) { $('loginMsg').textContent = e.message; }
+  }
+
+  function draw() {
+    $('list').innerHTML = Object.keys(C.surveys).map(k => {
+      const S = C.surveys[k], m = SurveyGate.mode(k), open = SurveyGate.isOpen(k), w = SurveyGate.when(k);
+      return `<div class="card sv"><div><h3>${esc(S.title)}</h3>
+          <div class="meta">${k}.html · 예약 공개 ${w ? esc(w) : '없음 (항상 열림)'}</div>
+          <span class="state ${open ? 'on' : 'off'}">${open ? '● 지금 열림' : '○ 지금 닫힘'}</span></div>
+        <div class="seg" data-k="${k}">
+          <button data-s="auto" class="${m === 'auto' ? 'on' : ''}">예약대로</button>
+          <button data-s="open" class="${m === 'open' ? 'on open' : ''}">지금 열기</button>
+          <button data-s="closed" class="${m === 'closed' ? 'on closed' : ''}">닫기</button>
+        </div></div>`;
+    }).join('') + '<div class="msg" id="setMsg"></div>';
+  }
+
+  $('list').addEventListener('click', async e => {
+    const b = e.target.closest('.seg button'); if (!b) return;
+    const seg = b.parentElement; seg.querySelectorAll('button').forEach(x => x.disabled = true);
+    try { await post({ survey: seg.dataset.k, status: b.dataset.s }); await SurveyGate.load(); draw(); }
+    catch (err) { draw(); $('setMsg').textContent = '변경 실패: ' + err.message; }
+  });
+  $('loginBtn').addEventListener('click', login);
+  $('pw').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+  if (KEY) login();
+  setInterval(() => { if (!$('list').hidden) draw(); }, 30000); // 예약 시각 지나면 상태 표시 갱신
+})();
+</script>
+</body>
+</html>
