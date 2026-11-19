@@ -206,3 +206,4 @@ textarea{min-height:96px;resize:vertical}
 .rank .rank-row{grid-template-columns:minmax(300px,1.4fr) 110px minmax(240px,2fr) 90px}
 
 @media (max-width:1100px){.rank .rank-row{grid-template-columns:1fr 80px}.rank .rank-row .stack{grid-column:1/-1}}
+.cmp th.c,.cmp td.c{text-align:center}.cmp td.av{font-weight:700;font-variant-numeric:tabular-nums}.cmp td.av.low{color:var(--warn)}.cmp td.av.top{color:var(--accent)}
