@@ -21,9 +21,9 @@ window.SURVEY_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbw4yBPRFfuNWkkgZQIw39w6fRaPBjeEDjj2SgGgKQj0kYaFIx2z7rbE06gUZ7ulQio/exec',
   COURSE_NAME: '신임 임원급 직책 보임자 과정',
   REFRESH_SEC: 30, // 대시보드 자동 새로고침 주기(초)
-  SHEET_URL: '',
+  SHEET_URL: '', // (선택) 구글시트 주소를 넣으면 대시보드에 '구글시트 열기' 버튼이 생김
   // 공개 시각 전 index 페이지 표시 방식: 'lock' = 잠긴 버튼으로 보여줌 / 'hide' = 아예 숨김
-  BEFORE_OPEN: 'lock', // (선택) 구글시트 주소를 넣으면 대시보드에 '구글시트 열기' 버튼이 생김
+  BEFORE_OPEN: 'hide',
 
   // 5점 척도 라벨 세트 (문항에서 scale: '이름' 으로 지정, 미지정 시 agree)
   SCALES: {
@@ -87,7 +87,7 @@ window.SURVEY_CONFIG = {
     // 모듈 문항은 MOD(id, 모듈명, 강사명)으로 생성 → 만족도(5점) + 기억에 남는 내용(주관식)
     day1: {
       sheet: '만족도_1일',
-      openAt: '2026-11-30T16:40:00+09:00', // 이 시각부터 응답 가능 (한국시간). 비우면 항상 열림
+      openAt: '2026-11-30T16:00:00+09:00', // 이 시각부터 응답 가능 (한국시간). 비우면 항상 열림
       title: '1일차 설문 (11/30)',
       desc: '오늘 들으신 각 모듈에 대한 의견을 들려주세요.',
       questions: [
@@ -102,7 +102,7 @@ window.SURVEY_CONFIG = {
 
     day2: {
       sheet: '만족도_2일',
-      openAt: '2026-12-01T15:30:00+09:00',
+      openAt: '2026-12-01T15:00:00+09:00',
       title: '2일차 설문 (12/1)',
       desc: '각 모듈과 과정 전체에 대한 의견을 들려주세요.',
       questions: [
