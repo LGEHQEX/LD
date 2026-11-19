@@ -242,7 +242,7 @@
     });
     if (m.size < 2) return '';
     const list = [...m].map(([k, a]) => ({ k, avg: a.n ? a.sum / a.n : null, qs: a.qs })).sort((a, b) => (a.avg ?? 9) - (b.avg ?? 9));
-    return `<div class="sec-h"><h2>요구 영역별 평균</h2><span class="muted">낮은 순 · 보완이 필요한 영역부터</span></div>
+    return `<div class="sec-h"><h2>영역별 평균</h2><span class="muted">낮은 순 · 보완이 필요한 영역부터</span></div>
       <div class="areas">${list.map((x, i) => `<div class="card area ${i === 0 ? 'first' : ''}"><div class="label">${esc(x.k)}</div>
         ${score(x.avg, 'xl')}<div class="foot">${x.qs.join(' · ')}</div></div>`).join('')}</div>`;
   }
