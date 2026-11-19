@@ -58,10 +58,18 @@
         } else vals = i < 0 ? [] : rows.map((r, ri) => ({ v: r[i], t: ts[ri] })).filter(x => x.v !== '' && x.v != null);
         return { ...q, vals, col: i };
       });
-      const roster = rows.map(r => ({ t: r[0], ids: qs.filter(q => q.identity).map(q => (q.col < 0 ? '' : r[q.col])) }));
+      // 응답자별 영역 평균 (area 가 있는 5점 문항)
+      const areaNames = [...new Set(qs.filter(q => q.type === 'likert' && q.area).map(q => q.area))];
+      const roster = rows.map(r => ({
+        t: r[0], ids: qs.filter(q => q.identity).map(q => (q.col < 0 ? '' : r[q.col])),
+        areas: areaNames.map(a => {
+          const vs = qs.filter(q => q.type === 'likert' && q.area === a && q.col >= 0).map(q => Number(r[q.col])).filter(v => v >= 1);
+          return vs.length ? vs.reduce((x, y) => x + y, 0) / vs.length : null;
+        }),
+      }));
       const likerts = qs.filter(q => q.type === 'likert').flatMap(q => q.vals.map(x => Number(x.v))).filter(n => n >= 1);
       out[k] = {
-        k, S, n: rows.length, qs, roster,
+        k, S, n: rows.length, qs, roster, areaNames,
         avg: likerts.length ? likerts.reduce((a, b) => a + b, 0) / likerts.length : null,
         last: ts.length ? ts.reduce((a, b) => (new Date(a) > new Date(b) ? a : b)) : null,
       };
@@ -255,8 +263,8 @@
     const cnt = list.reduce((m, r) => m.set(key(r), (m.get(key(r)) || 0) + 1), new Map());
     const dup = [...cnt.values()].filter(c => c > 1).length;
     return `<div class="sec-h"><h2>응답자 명단</h2><span class="muted">${list.length}건${dup ? ` · <b style="color:var(--bad)">중복 제출 ${dup}명</b>` : ''}</span></div>
-      <div class="card"><div class="roster"><table class="cmp"><thead><tr><th>#</th>${idq.map(q => `<th>${esc(q.label)}</th>`).join('')}<th>제출시각</th></tr></thead><tbody>
-      ${list.map((r, i) => `<tr${cnt.get(key(r)) > 1 ? ' class="dup"' : ''}><td>${list.length - i}</td>${r.ids.map(v => `<td>${esc(v)}</td>`).join('')}<td>${fmtTime(r.t)}</td></tr>`).join('')}
+      <div class="card"><div class="roster"><table class="cmp"><thead><tr><th>#</th>${idq.map(q => `<th>${esc(q.label)}</th>`).join('')}<th>제출시각</th>${d.areaNames.map(a => `<th class="c">${esc(a)}</th>`).join('')}</tr></thead><tbody>
+      ${list.map((r, i) => `<tr${cnt.get(key(r)) > 1 ? ' class="dup"' : ''}><td>${list.length - i}</td>${r.ids.map(v => `<td>${esc(v)}</td>`).join('')}<td>${fmtTime(r.t)}</td>${r.areas.map(v => `<td class="c av ${v != null && v < 3 ? 'low' : v >= 4.5 ? 'top' : ''}">${v != null ? v.toFixed(1) : '-'}</td>`).join('')}</tr>`).join('')}
       </tbody></table></div></div>`;
   }
 
