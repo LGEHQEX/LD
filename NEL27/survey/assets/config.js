@@ -21,7 +21,7 @@ window.SURVEY_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbw4yBPRFfuNWkkgZQIw39w6fRaPBjeEDjj2SgGgKQj0kYaFIx2z7rbE06gUZ7ulQio/exec',
   COURSE_NAME: '신임 임원급 직책 보임자 과정',
   REFRESH_SEC: 30, // 대시보드 자동 새로고침 주기(초)
-  SHEET_URL: 'https://docs.google.com/spreadsheets/d/1nufFI1ioJVJ-nDJzEZnhLVNkThiP0rUOi9Wh9DTU7BY/edit?usp=sharing', // (선택) 구글시트 주소를 넣으면 대시보드에 '구글시트 열기' 버튼이 생김
+  SHEET_URL: 'https://docs.google.com/spreadsheets/d/1nufFI1ioJVJ-nDJzEZnhLVNkThiP0rUOi9Wh9DTU7BY/edit', // (선택) 구글시트 주소를 넣으면 대시보드에 '구글시트 열기' 버튼이 생김
   // 공개 시각 전 index 페이지 표시 방식: 'lock' = 잠긴 버튼으로 보여줌 / 'hide' = 아예 숨김
   BEFORE_OPEN: 'hide',
 
@@ -49,6 +49,11 @@ window.SURVEY_CONFIG = {
       questions: [
         { id: 'name', type: 'text', label: '이름', required: true, identity: true },
         { id: 'empno', type: 'text', label: '사번', required: true, identity: true, private: true }, // private: 대시보드 명단에 표시 안 함 (중복 확인에는 사용)
+        // intro: '공통 질문' 묶음 (Q번호·영역별 평균에서 제외)
+        { id: 'change_know', type: 'likert', scale: 'confidence', intro: true, required: true,
+          label: '담당으로서 그 전과 가장 달라져야 할 것에 대해 알고 있다' },
+        { id: 'change_what', type: 'textarea', intro: true, required: true, placeholder: '자유롭게 작성해 주세요.',
+          label: '달라져야 할 것이 무엇인지 본인의 생각을 작성해 주세요' },
         { id: 'q1', type: 'likert', scale: 'confidence', area: '역할 전환', lgway: '저부가가치 업무 효율화, 자율적 업무 수행', required: true,
           label: '직접 챙길 일과 구성원에게 맡길 일을 구분하는 나만의 기준이 있다' },
         { id: 'q2', type: 'likert', scale: 'confidence', area: '역할 전환', lgway: '목표 달성 역할 분담', required: true,
