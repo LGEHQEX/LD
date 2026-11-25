@@ -205,7 +205,9 @@
     course.forEach(q => used.add(q.id));
     if (course.length) html += `<div class="card note">과정 만족도 문항은 <a href="#course" data-go="course">과정 만족도 탭</a>에서 확인하세요.</div>`;
 
-    // ③ 사전설문: 영역별 평균 + 문항
+    // ③ 사전설문: 공통 질문(예/아니오 등) → 영역별 평균 → 문항
+    const introQs = d.qs.filter(q => q.intro && q.type !== 'textarea' && q.type !== 'text');
+    if (introQs.length) { introQs.forEach(q => used.add(q.id)); html += `<div class="sec-h"><h2>공통 질문</h2></div>` + introQs.map(otherCard).join(''); }
     html += areaCard(d);
     const likerts = d.qs.filter(q => q.type === 'likert' && !used.has(q.id));
     if (likerts.length) {
@@ -297,6 +299,7 @@
       const v = valOf(q);
       const label = `${q.no && q.type === 'likert' ? `<b class="qn">Q${q.no}</b>` : ''}${esc(q.label)}`;
       if (q.type === 'likert') h += `<div class="pm-q"><div class="pm-l">${label}</div><div class="pm-v">${dots(v, q)}</div></div>`;
+      else if (q.type === 'single') h += `<div class="pm-q"><div class="pm-l">${label}</div><div class="chips">${v !== '' && v != null ? `<span>${esc(v)}</span>` : '<span class="muted">-</span>'}</div></div>`;
       else if (q.type === 'multi') { const arr = Array.isArray(v) ? v : String(v || '').split(', ').filter(Boolean);
         h += `<div class="pm-q col"><div class="pm-l">${label}</div><div class="chips">${arr.length ? arr.map((x, i) => `<span>${q.max ? i + 1 + '. ' : ''}${esc(x)}</span>`).join('') : '<span class="muted">-</span>'}</div></div>`; }
       else h += `<div class="pm-q col"><div class="pm-l">${label}</div><div class="pm-t">${v !== '' && v != null ? esc(v) : '<span class="muted">응답 없음</span>'}</div></div>`;
