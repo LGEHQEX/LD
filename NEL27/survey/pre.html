@@ -16,14 +16,14 @@
 .info label b{display:block;font-size:14px;margin-bottom:6px} .info input{width:100%;padding:12px 13px;border:1px solid #cfd2d7;border-radius:9px;font:inherit}
 .phase{margin:34px 0 12px;border-top:2px solid var(--red)} .phase div{display:flex;align-items:baseline;gap:14px;padding-top:12px} .phase span{font-size:21px;font-weight:800;color:var(--red);white-space:nowrap;flex:0 0 auto} .phase small{color:var(--muted)}
 .question{border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px;transition:border-color .2s} .qnum{font-weight:800;color:var(--red);font-size:14px} h3{font-size:17px;line-height:1.55;margin:5px 0 18px}
-.options{display:grid;grid-template-columns:repeat(5,1fr);gap:8px} .option{position:relative;cursor:pointer} .option input{position:absolute;opacity:0;pointer-events:none} .option>span{display:block;text-align:center} .option{border:1px solid var(--line);border-radius:10px;padding:12px 7px;min-height:58px;background:#fff;display:flex;align-items:baseline;justify-content:center;gap:3px} .option:hover{border-color:#c78b9e} .option:has(input:checked){border:2px solid var(--red);background:var(--pink);padding:10px 6px} .score{font-size:20px;font-weight:800;color:var(--red)} .point-word{font-size:12px;color:var(--muted)} .option .desc{display:none}
+.options{display:grid;grid-template-columns:repeat(5,1fr);gap:8px} .option{position:relative;cursor:pointer} .option input{position:absolute;opacity:0;pointer-events:none} .option>span{display:block;text-align:center} .option{border:1px solid var(--line);border-radius:10px;padding:12px 7px;min-height:58px;background:#fff;display:flex;align-items:baseline;justify-content:center;gap:3px} .option:hover{border-color:#c78b9e} .option:has(input:checked){border:2px solid var(--red);background:var(--pink);padding:10px 6px} .score{font-size:20px;font-weight:800;color:var(--red)} .point-word{font-size:12px;color:var(--muted)} .option .desc{display:none} .options.yn{grid-template-columns:repeat(2,1fr)} .options.yn .score{font-size:19px}
 .picks{display:grid;grid-template-columns:repeat(2,1fr);gap:8px} .pick{position:relative;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;background:#fff} .pick input{position:absolute;opacity:0;pointer-events:none} .pick::before{content:'';flex:0 0 18px;height:18px;border:2px solid #c4c8cf;border-radius:5px} .pick:has(input:checked){border:2px solid var(--red);background:var(--pink);padding:11px 13px} .pick:has(input:checked)::before{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 3px #fff} .pick.off{opacity:.4;cursor:not-allowed} .pick-count{font-size:14px;font-weight:700;color:var(--red);margin:-8px 0 12px}
 .openq{margin-top:34px;background:var(--soft);padding:24px;border-radius:14px} .openq h2{font-size:20px;margin-top:0} .openq label{display:block} textarea{width:100%;min-height:105px;margin:7px 0 18px;padding:13px;border:1px solid #cfd2d7;border-radius:9px;font:inherit;resize:vertical;background:#fff} textarea:focus,input:focus-visible,.info input:focus{outline:3px solid rgba(165,0,52,.2);border-color:var(--red)}
 .err{border-color:var(--bad)!important;box-shadow:0 0 0 3px rgba(220,38,38,.12)} .err-msg{display:none;color:var(--bad);font-size:13px;font-weight:700;margin-top:8px} .question.err .err-msg{display:block}
 button{width:100%;border:0;border-radius:10px;background:var(--red);color:#fff;font-size:17px;font-weight:800;padding:16px;cursor:pointer;margin-top:12px} button:hover{background:var(--red2)} button:disabled{opacity:.6;cursor:wait}
 .alert{display:none;margin-top:12px;padding:13px 15px;border-radius:9px;background:#fef2f2;color:var(--bad);font-size:14px} .alert.show{display:block}
 #complete{display:none;border:2px solid var(--red);border-radius:14px;padding:27px;background:#fff} #complete h2{color:var(--red);margin-top:0} .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0} .summary div{background:var(--soft);border-radius:10px;padding:14px;text-align:center} .summary b{display:block;font-size:22px;color:var(--red)} .foot{font-size:13px;color:var(--muted);margin-top:20px}
-@media(max-width:700px){.picks{grid-template-columns:1fr} .phase div{flex-direction:column;gap:2px} .hero,.panel{padding:25px 19px} h1{font-size:25px} .options,.scale-row,.info-grid{grid-template-columns:1fr} .option{display:flex;align-items:center;gap:10px;min-height:auto;justify-content:flex-start;padding:11px 14px} .option:has(input:checked){padding:10px 13px} .option .desc{display:block;font-size:13px;color:var(--muted);text-align:left;margin-left:6px} .summary{grid-template-columns:1fr}}
+@media(max-width:700px){.options.yn{grid-template-columns:1fr 1fr} .options.yn .option{justify-content:center} .picks{grid-template-columns:1fr} .phase div{flex-direction:column;gap:2px} .hero,.panel{padding:25px 19px} h1{font-size:25px} .options,.scale-row,.info-grid{grid-template-columns:1fr} .option{display:flex;align-items:center;gap:10px;min-height:auto;justify-content:flex-start;padding:11px 14px} .option:has(input:checked){padding:10px 13px} .option .desc{display:block;font-size:13px;color:var(--muted);text-align:left;margin-left:6px} .summary{grid-template-columns:1fr}}
 
 /* ───── PC·노트북 (1000px 이상: 화면 폭에 비례해 확대) ───── */
 @media(min-width:1000px){
@@ -121,6 +121,9 @@ button{width:100%;border:0;border-radius:10px;background:var(--red);color:#fff;f
     intros.forEach((q, i) => {
       const num = '공통 ' + (i + 1);
       html += q.type === 'likert' ? likertHtml(q, num)
+        : q.type === 'single' ? `<article class="question" data-id="${q.id}"><div class="qnum">${num}</div><h3>${esc(q.label)}</h3><div class="options yn">` +
+            q.options.map(o => `<label class="option"><input type="radio" name="${q.id}" value="${esc(o)}"><span class="score">${esc(o)}</span></label>`).join('') +
+            `</div><div class="err-msg">응답을 선택해 주세요.</div></article>`
         : `<article class="question" data-id="${q.id}"><div class="qnum">${num}</div><h3>${esc(q.label)}</h3>
            <textarea name="${q.id}" placeholder="${esc(q.placeholder || '')}" style="margin:0"></textarea></article>`;
     });
@@ -168,6 +171,10 @@ button{width:100%;border:0;border-radius:10px;background:var(--red);color:#fff;f
         v = c ? Number(c.value) : '';
         form.querySelector(`.question[data-id="${q.id}"]`).classList.toggle('err', q.required && v === '');
         if (q.required && v === '') bad.push(form.querySelector(`.question[data-id="${q.id}"]`));
+      } else if (q.type === 'single') {
+        const c = form.querySelector(`input[name="${q.id}"]:checked`); v = c ? c.value : '';
+        const box = form.querySelector(`.question[data-id="${q.id}"]`);
+        box.classList.toggle('err', q.required && !v); if (q.required && !v) bad.push(box);
       } else if (q.type === 'multi') {
         const sel = [...form.querySelectorAll(`input[name="${q.id}"]:checked`)].map(i => i.value);
         const box = form.querySelector(`.question[data-id="${q.id}"]`), miss = q.required && sel.length < (q.min || 1);
