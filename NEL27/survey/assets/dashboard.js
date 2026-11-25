@@ -47,21 +47,21 @@
       const ts = rows.map(r => r[0]);
       let no = 0;
       const qs = S.questions.filter(q => q.type !== 'section').map(q => {
-        if (!q.identity && !(q.type === 'multi' && q.max)) q = { ...q, no: ++no };
+        if (!q.identity && !q.intro && !(q.type === 'multi' && q.max)) q = { ...q, no: ++no };
         const i = d.headers.indexOf(q.label);
-        let vals;
+        let vals, cols = null;
         if (q.split) {
           const re = new RegExp('^' + q.split.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ' \\d+$');
-          const cols = d.headers.map((h, ci) => (re.test(h) ? ci : -1)).filter(ci => ci >= 0);
+          cols = d.headers.map((h, ci) => (re.test(h) ? ci : -1)).filter(ci => ci >= 0);
           if (i >= 0) cols.push(i);
           vals = rows.map((r, ri) => ({ v: cols.map(ci => r[ci]).filter(x => x !== '' && x != null).join(', '), t: ts[ri] })).filter(x => x.v);
         } else vals = i < 0 ? [] : rows.map((r, ri) => ({ v: r[i], t: ts[ri] })).filter(x => x.v !== '' && x.v != null);
-        return { ...q, vals, col: i };
+        return { ...q, vals, col: i, cols };
       });
       // 응답자별 영역 평균 (area 가 있는 5점 문항)
       const areaNames = [...new Set(qs.filter(q => q.type === 'likert' && q.area).map(q => q.area))];
       const roster = rows.map(r => ({
-        t: r[0], ids: qs.filter(q => q.identity).map(q => (q.col < 0 ? '' : r[q.col])),
+        t: r[0], row: r, ids: qs.filter(q => q.identity).map(q => (q.col < 0 ? '' : r[q.col])),
         areas: areaNames.map(a => {
           const vs = qs.filter(q => q.type === 'likert' && q.area === a && q.col >= 0).map(q => Number(r[q.col])).filter(v => v >= 1);
           return vs.length ? vs.reduce((x, y) => x + y, 0) / vs.length : null;
@@ -212,7 +212,7 @@
       likerts.forEach(q => used.add(q.id));
       html += `<div class="sec-h"><h2>문항별 결과</h2>${legend(likerts[0])}</div><div class="card"><div class="qlist">` +
         likerts.map(q => { const dd = dist(q); return `<div class="qrow">
-          <div class="qrow-t"><b>Q${q.no}</b>${esc(q.label)}${q.area ? `<small>${esc(q.area)}${q.lgway ? ' · LG Way: ' + esc(q.lgway) : ''}</small>` : ''}</div>
+          <div class="qrow-t"><b>${q.no ? 'Q' + q.no : '공통'}</b>${esc(q.label)}${q.area ? `<small>${esc(q.area)}${q.lgway ? ' · LG Way: ' + esc(q.lgway) : ''}</small>` : ''}</div>
           ${score(dd.avg)}${stack(q, dd)}<span class="rank-meta">긍정 <b>${dd.top}%</b></span></div>`; }).join('') + '</div></div>';
     }
 
@@ -255,18 +255,64 @@
         ${score(x.avg, 'xl')}<div class="foot">${x.qs.join(' · ')}</div></div>`).join('')}</div>`;
   }
 
+  let ROSTER = { d: null, list: [] };
   function rosterCard(d) {
     const idq = d.qs.filter(q => q.identity);
     if (!idq.length) return '';
     const list = [...d.roster].sort((a, b) => new Date(b.t) - new Date(a.t));
+    ROSTER = { d, list };
     const key = r => r.ids.join('|');
     const cnt = list.reduce((m, r) => m.set(key(r), (m.get(key(r)) || 0) + 1), new Map());
     const dup = [...cnt.values()].filter(c => c > 1).length;
-    return `<div class="sec-h"><h2>응답자 명단</h2><span class="muted">${list.length}건${dup ? ` · <b style="color:var(--bad)">중복 제출 ${dup}명</b>` : ''}</span></div>
+    return `<div class="sec-h"><h2>응답자 명단</h2><span class="muted">이름을 누르면 개인별 응답을 볼 수 있어요 · ${list.length}건${dup ? ` · <b style="color:var(--bad)">중복 제출 ${dup}명</b>` : ''}</span></div>
       <div class="card"><div class="roster"><table class="cmp"><thead><tr><th>#</th>${idq.filter(q => !q.private).map(q => `<th>${esc(q.label)}</th>`).join('')}<th>제출시각</th>${d.areaNames.map(a => `<th class="c">${esc(a)}</th>`).join('')}</tr></thead><tbody>
-      ${list.map((r, i) => `<tr${cnt.get(key(r)) > 1 ? ' class="dup"' : ''}><td>${list.length - i}</td>${r.ids.filter((v, j) => !idq[j].private).map(v => `<td>${esc(v)}</td>`).join('')}<td>${fmtTime(r.t)}</td>${r.areas.map(v => `<td class="c av ${v != null && v < 3 ? 'low' : v >= 4.5 ? 'top' : ''}">${v != null ? v.toFixed(1) : '-'}</td>`).join('')}</tr>`).join('')}
+      ${list.map((r, i) => `<tr${cnt.get(key(r)) > 1 ? ' class="dup"' : ''}><td>${list.length - i}</td>${r.ids.map((v, j) => idq[j].private ? '' : j === 0 ? `<td><button class="person" data-person="${i}">${esc(v)}</button></td>` : `<td>${esc(v)}</td>`).join('')}<td>${fmtTime(r.t)}</td>${r.areas.map(v => `<td class="c av ${v != null && v < 3 ? 'low' : v >= 4.5 ? 'top' : ''}">${v != null ? v.toFixed(1) : '-'}</td>`).join('')}</tr>`).join('')}
       </tbody></table></div></div>`;
   }
+
+  /* ═════ 개인별 응답 팝업 ═════ */
+  function personHtml(d, r) {
+    const idq = d.qs.filter(q => q.identity);
+    const name = r.ids[0] || '(이름 없음)';
+    const valOf = q => (q.cols ? q.cols.map(ci => r.row[ci]).filter(x => x !== '' && x != null) : (q.col < 0 ? '' : r.row[q.col]));
+    // 전체 응답자 영역 평균 (비교용)
+    const allAvg = d.areaNames.map((a, ai) => { const vs = d.roster.map(x => x.areas[ai]).filter(v => v != null); return vs.length ? vs.reduce((x, y) => x + y, 0) / vs.length : null; });
+    const dots = (v, q) => {
+      const n = Number(v), sc = scaleOf(q);
+      if (!(n >= 1)) return '<span class="muted">-</span>';
+      return `<span class="dots">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? 'on' : ''}"></i>`).join('')}</span><b class="pv ${tone(n)}">${n}</b><span class="muted">${esc(sc[n - 1] || '')}</span>`;
+    };
+    let h = `<div class="pm-head"><div><small>${esc(d.S.title)} · ${fmtTime(r.t)} 제출</small><h2>${esc(name)}</h2></div><button class="pm-x" data-close aria-label="닫기">✕</button></div><div class="pm-body">`;
+    if (d.areaNames.length) {
+      h += `<h4>영역별 결과 <span class="muted">· 괄호는 전체 응답자 평균</span></h4><div class="pm-areas">${d.areaNames.map((a, ai) => {
+        const v = r.areas[ai], g = allAvg[ai], diff = v != null && g != null ? v - g : null;
+        return `<div class="pm-area"><span>${esc(a)}</span><b class="${tone(v)}">${v != null ? v.toFixed(1) : '-'}</b>
+          <em>(${g != null ? g.toFixed(1) : '-'})${diff != null && Math.abs(diff) >= 0.05 ? ` <i class="${diff > 0 ? 'up' : 'down'}">${diff > 0 ? '▲' : '▼'}${Math.abs(diff).toFixed(1)}</i>` : ''}</em></div>`;
+      }).join('')}</div>`;
+    }
+    let area = '__';
+    d.qs.filter(q => !q.identity).forEach(q => {
+      const grp = q.intro ? '공통 질문' : q.type === 'likert' ? q.area || '문항' : q.type === 'multi' ? (q.area || '선택') : '주관식';
+      if (grp !== area) { area = grp; h += `<h4>${esc(grp)}</h4>`; }
+      const v = valOf(q);
+      const label = `${q.no && q.type === 'likert' ? `<b class="qn">Q${q.no}</b>` : ''}${esc(q.label)}`;
+      if (q.type === 'likert') h += `<div class="pm-q"><div class="pm-l">${label}</div><div class="pm-v">${dots(v, q)}</div></div>`;
+      else if (q.type === 'multi') { const arr = Array.isArray(v) ? v : String(v || '').split(', ').filter(Boolean);
+        h += `<div class="pm-q col"><div class="pm-l">${label}</div><div class="chips">${arr.length ? arr.map((x, i) => `<span>${q.max ? i + 1 + '. ' : ''}${esc(x)}</span>`).join('') : '<span class="muted">-</span>'}</div></div>`; }
+      else h += `<div class="pm-q col"><div class="pm-l">${label}</div><div class="pm-t">${v !== '' && v != null ? esc(v) : '<span class="muted">응답 없음</span>'}</div></div>`;
+    });
+    return h + '</div>';
+  }
+  function openPerson(i) {
+    const r = ROSTER.list[i]; if (!r) return;
+    let m = $('pmodal');
+    if (!m) { m = document.createElement('div'); m.id = 'pmodal'; m.className = 'pm-wrap'; document.body.appendChild(m);
+      m.addEventListener('click', e => { if (e.target === m || e.target.closest('[data-close]')) closePerson(); }); }
+    m.innerHTML = `<div class="pm" role="dialog" aria-modal="true">${personHtml(ROSTER.d, r)}</div>`;
+    m.hidden = false; document.body.style.overflow = 'hidden';
+  }
+  function closePerson() { const m = $('pmodal'); if (m) { m.hidden = true; document.body.style.overflow = ''; } }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePerson(); });
 
   /* ═════ 엑셀 다운로드 (시트 원본과 같은 탭·열 구성) ═════ */
   function loadXLSX() {
@@ -318,6 +364,7 @@
     tab = b.dataset.k; history.replaceState(null, '', '#' + tab); draw(); window.scrollTo(0, 0);
   });
   $('body').addEventListener('click', e => {
+    const pb = e.target.closest('[data-person]'); if (pb) return openPerson(+pb.dataset.person);
     const a = e.target.closest('[data-go]'); if (!a) return;
     e.preventDefault(); tab = a.dataset.go; history.replaceState(null, '', '#' + tab); draw(); window.scrollTo(0, 0);
   });
