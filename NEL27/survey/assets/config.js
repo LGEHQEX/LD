@@ -50,7 +50,7 @@ window.SURVEY_CONFIG = {
         { id: 'name', type: 'text', label: '이름', required: true, identity: true },
         { id: 'empno', type: 'text', label: '사번', required: true, identity: true, private: true }, // private: 대시보드 명단에 표시 안 함 (중복 확인에는 사용)
         // intro: '공통 질문' 묶음 (Q번호·영역별 평균에서 제외)
-        { id: 'change_know', type: 'likert', scale: 'confidence', intro: true, required: true,
+        { id: 'change_know', type: 'single', options: ['예', '아니오'], intro: true, required: true,
           label: '담당으로서 그 전과 가장 달라져야 할 것에 대해 알고 있다' },
         { id: 'change_what', type: 'textarea', intro: true, required: true, placeholder: '자유롭게 작성해 주세요.',
           label: '달라져야 할 것이 무엇인지 본인의 생각을 작성해 주세요' },
